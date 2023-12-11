@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="main.css">
+
+</head>
+
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <span class="navbar-brand">Navbar</span>
+            <button class="navbar-toggler" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+
+    <ul class="list-group">
+        <li class="list-group-item">An item</li>
+        <li class="list-group-item">A second item</li>
+        <li class="list-group-item">A third item</li>
+        <li class="list-group-item">A fourth item</li>
+        <li class="list-group-item">And a fifth one</li>
+    </ul>
+    <div class="alert-box" id='alert-box'>
+        <p>알림창</p>
+        <button id="closeButton">닫기</button>
+    </div>
+    <button id='idButton'>ID</button>
+    <button id='pwButton'>PW</button>
+    <p class="hello">안녕</p>
+    <button class="test-btn">버튼</button>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</body>
+<script>
+    $('.hello').html('바보');
+    // $('hello').addClass('show');
+    $('.test-btn').on('click', function() {
+        $('.hello').html('바뀌어요');
+    })
+    const alertBox = document.getElementById('alert-box');
+    alertBox.style.display = 'none';
+
+    const idButton = document.getElementById('idButton');
+    const pwButton = document.getElementById('pwButton');
+    const colseButton = document.getElementById('closeButton');
+    let boxChecker = 'none';
+
+    document.querySelector('.navbar-toggler').addEventListener('click', function () {
+        document.querySelector('.list-group').classList.toggle('show');
+    })
+
+    idButton.addEventListener("click", function () {
+        const content = alertBox.querySelector('p');
+        if (boxChecker === 'pw' && alertBox.style.display === 'block') {
+            boxChecker = 'id';
+            content.innerHTML = '아이디를 입력하세요'
+        } else {
+            boxChecker = 'id';
+            alertBox.style.display = (alertBox.style.display === 'none') ? 'block' : 'none';
+            content.innerHTML = '아이디를 입력하세요'
+        }
+    });
+
+    pwButton.addEventListener("click", function () {
+        const content = alertBox.querySelector('p');
+        if (boxChecker === 'id' && alertBox.style.display === 'block') {
+            boxChecker = 'pw';
+            content.innerHTML = '비밀번호를 입력하세요'
+        } else {
+            boxChecker = 'pw';
+            alertBox.style.display = (alertBox.style.display === 'none') ? 'block' : 'none';
+            content.innerHTML = '비밀번호를 입력하세요'
+        }
+    });
+
+    colseButton.addEventListener("click", function () {
+        alertBox.style.display = "none";
+    });
+</script>
+
+</html>
