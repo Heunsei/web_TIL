@@ -11,25 +11,41 @@
 </head>
 
 <body>
-  <div class="modal" tabindex="-1">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Modal title</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <p>Modal body text goes here.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Okay</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        </div>
-      </div>
+  <div class="black-bg">
+    <div class="white-bg">
+      <h4>로그인하세요</h4>
+      <form action="success.html" onsubmit="return loginSubmit()">
+        <div class="my-3">
+          <input type="text" class="form-control" id="id_input">
+         </div>
+         <div class="my-3">
+           <input type="password" class="form-control" id="pw_input">
+         </div>
+         <button type="submit" class="btn btn-primary" id="login_submit">전송</button>
+         <button type="button" class="btn btn-danger" id="close">닫기</button>
+      </form> 
     </div>
   </div>
-  
-  <button class="modal-btn">버튼</button>
+
+  <nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+      <span class="navbar-brand">Navbar</span>
+      <button class="navbar-toggler" type="button">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </nav>
+
+  <ul class="list-group">
+    <li class="list-group-item">An item</li>
+    <li class="list-group-item">A second item</li>
+    <li class="list-group-item">A third item</li>
+    <li class="list-group-item">A fourth item</li>
+    <li class="list-group-item">And a fifth one</li>
+  </ul>
+  <div class="login-bg">
+    <button class="modal-btn" id="openBtn">로그인?</button>
+  </div>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"
     integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
@@ -37,21 +53,43 @@
     crossorigin="anonymous"></script>
 </body>
 <script>
-  const modal = $('.modal');
-  $('.modal-btn').on('click', function() {
-    let isModalOpen = modal.hasClass('show');
+  const modal = $('.black-bg');
+  const navbarToggler = $('.navbar-toggler');
 
-    if (isModalOpen){
-      modal.removeClass('show');
-    }else {
-      modal.addClass('show');
+  // 모달관련 js
+  $('#openBtn').on('click', function () {
+    modal.addClass('show-modal');
+  })
+
+  $('#close').on('click', function () {
+    let isModalOpen = modal.hasClass('show-modal');
+    if (isModalOpen) {
+      modal.removeClass('show-modal');
+    } else {
+      modal.addClass('show-modal');
     }
   })
 
-  $('.btn-secondary').on('click', function() {
-    modal.removeClass('show');
+  // navbar관련 js
+  navbarToggler.on('click', function () {
+    document.querySelector('.list-group').classList.toggle('list-group-show');
   })
 
+  // 이렇게도 가능
+  // $('form').on('submit' function() {})
+  const loginSubmit = () => {
+    const idInput = document.querySelector('#id_input').value;
+    const pwInput = document.querySelector('#pw_input').value;
+    if(idInput.trim() === '' || pwInput.trim()===''){
+      alert('id혹은 pw칸이 비어있습니다');
+      return false;
+    }
+    if (pwInput.length < 6){
+      alert('pw는 6글자 이상이어야 합니다')
+      return false;
+    }
+    return true;
+  };
 </script>
 
 </html>
