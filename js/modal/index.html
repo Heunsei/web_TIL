@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -19,7 +19,7 @@
           <input type="text" class="form-control" id="id_input">
          </div>
          <div class="my-3">
-           <input type="password" class="form-control" id="pw_input">
+           <input type="password" class="form-control" id="pw_input" autocomplete="off">
          </div>
          <button type="submit" class="btn btn-primary" id="login_submit">전송</button>
          <button type="button" class="btn btn-danger" id="close">닫기</button>
@@ -30,6 +30,7 @@
   <nav class="navbar navbar-light bg-light">
     <div class="container-fluid">
       <span class="navbar-brand">Navbar</span>
+      <span class="badge bg-dark" id="dark-btn">dark</span>
       <button class="navbar-toggler" type="button">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -90,6 +91,25 @@
     }
     return true;
   };
+
+  // input event
+  //document.querySelector('#id_input').addEventListener('input', function(){
+  //  console.log('입력중')
+  //})
+
+  // dark 버튼 관련 코드
+  let clicked = 0
+  document.querySelector('#dark-btn').addEventListener('click', function(){
+    clicked += 1
+    console.log(clicked)
+    if (clicked%2==1){
+      document.querySelector('#dark-btn').innerHTML = 'light'
+      document.querySelector('body').classList.add('dark')
+    }else {
+      document.querySelector('#dark-btn').innerHTML = 'dark'
+      document.querySelector('body').classList.remove('dark')
+    }
+  })
 </script>
 
 </html>

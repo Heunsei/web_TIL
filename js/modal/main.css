@@ -10,6 +10,11 @@
     transition: all 1s;
 }
 
+.dark {
+    background-color: black;
+    color: white;
+}
+
 .white-bg {
     background: white;
     border-radius: 5px;
