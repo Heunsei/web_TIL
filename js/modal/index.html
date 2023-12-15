@@ -35,6 +35,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
     </div>
+    <div class="progress-bar"></div>
   </nav>
 
   <ul class="list-group">
@@ -214,13 +215,32 @@
 
     }
   })
-
+  let isRead = false
   document.querySelector('.Lorem').addEventListener('scroll', function(){
+    // const scrolled = loremDiv.scrollTop
+    // const scrollHeight = loremDiv.ScrollHeight
+    // const height = loremDiv.clientHeight
+    // if scrolled + height == scrollHeight - xx
+    const loremDiv = document.querySelector('.Lorem')
     console.log(loremDiv.clientHeight)
     const isBottom = loremDiv.scrollHeight - loremDiv.clientHeight <= loremDiv.scrollTop + 1
     if(isBottom){
-      alert('약관에 동의해 주십시오')
+      if (!isRead){
+        console.log(isRead)
+        isRead = true
+        alert('약관에 동의해 주십시오')
+      }
     }
+  })
+
+  // 스크롤 할 때마다 진행도를 표시해주는 코드
+  const progressBar = document.querySelector('.progress-bar')
+  window.addEventListener('scroll', function(){
+    const scrollHeight = document.documentElement.scrollHeight
+    const scrollTop = document.documentElement.scrollTop  // 현재 스크롤의 위치
+    const height = document.documentElement.clientHeight
+    progressBar.style.width = ((scrollTop) / scrollHeight) * 100 + '%'
+    console.log(progressBar.style.width)
   })
 
 </script>
