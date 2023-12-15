@@ -72,6 +72,12 @@
   <button class="slide-3">3</button>
   <button class="next">다음</button>
 
+  <div class="Lorem" style="width: 200px; height: 100px; overflow-y: scroll;">
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam perspiciatis at laboriosam voluptatem facilis
+    facere, quis quia ad necessitatibus. Cumque beatae sequi tenetur a molestiae voluptas ab, eius accusantium iste.
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus ipsum impedit ducimus quisquam cupiditate sint, iste laborum esse non? Ducimus voluptate illo corporis corrupti ex officia eligendi cumque laboriosam velit?
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam commodi rem sunt at necessitatibus architecto corporis consequatur facilis tempora cupiditate ratione dolorem quaerat sequi, totam rerum aliquid qui doloremque laborum.
+  </div>
 
   <div style="height: 1000px;"></div>
 
@@ -166,46 +172,54 @@
   const button3 = document.querySelector('.slide-3')
   const next = document.querySelector('.next')
 
-  
+
   let currentIndex = 0;
   const idxLength = document.querySelectorAll('.slide-box').length
 
-  prev.addEventListener('click', function(){
+  prev.addEventListener('click', function () {
     currentIndex = (currentIndex - 1 + idxLength) % idxLength
     const translateValue = -100 * currentIndex + 'vw';
     document.querySelector('.slide-container').style.transform = 'translateX(' + translateValue + ')';
   })
-  
-  button1.addEventListener('click', function(){
+
+  button1.addEventListener('click', function () {
     currentIndex = 0
     document.querySelector('.slide-container').style.transform = 'translateX(0)'
   })
-  
-  button2.addEventListener('click', function(){
+
+  button2.addEventListener('click', function () {
     currentIndex = 1
     document.querySelector('.slide-container').style.transform = 'translateX(-100vw)'
   })
 
-  button3.addEventListener('click', function(){
-    currentIndex = 2    
+  button3.addEventListener('click', function () {
+    currentIndex = 2
     document.querySelector('.slide-container').style.transform = 'translateX(-200vw)'
   })
 
-  next.addEventListener('click', function(){
+  next.addEventListener('click', function () {
     currentIndex = (currentIndex + 1) % idxLength
     const translateValue = -100 * currentIndex + 'vw';
     document.querySelector('.slide-container').style.transform = 'translateX(' + translateValue + ')';
   })
 
+  // 스크롤 관련 js
   // $(window).on('scroll', funciton(){})
   // .scrollTop() scrollY랑 똑같음
-  window.addEventListener('scroll', function() {
-    console.log(window.scrollY)
-    if(window.scrollY >= 100){
-      document.querySelector('.navbar-brand').style.fontSize = '10px'
-    }else{
+  window.addEventListener('scroll', function () {
+    if (window.scrollY >= 100) {
+      document.querySelector('.navbar-brand').style.fontSize = '24px'
+    } else {
       document.querySelector('.navbar-brand').style.fontSize = '36px'
 
+    }
+  })
+
+  document.querySelector('.Lorem').addEventListener('scroll', function(){
+    console.log(loremDiv.clientHeight)
+    const isBottom = loremDiv.scrollHeight - loremDiv.clientHeight <= loremDiv.scrollTop + 1
+    if(isBottom){
+      alert('약관에 동의해 주십시오')
     }
   })
 

@@ -5,11 +5,13 @@
 .navbar {
     position : fixed;
     width: 100%;
-    z-index: 5;
+    z-index: 4;
+    height: 100px;
 }
 
 .navbar-brand {
     font-size: 32px;
+    transition: all 0.5s;
 }
 
 .black-bg {
@@ -41,13 +43,14 @@
 }
 
 .list-group {
+    padding-top: 100px;
     max-height: 0;
     overflow: hidden;
     transition: max-height 1s ease;
 }
 
 .list-group-show {
-    max-height: 300px;
+    max-height: 490px;
 }
 
 .login-bg {
