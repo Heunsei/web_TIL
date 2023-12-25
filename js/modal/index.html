@@ -76,8 +76,11 @@
   <div class="Lorem" style="width: 200px; height: 100px; overflow-y: scroll;">
     Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam perspiciatis at laboriosam voluptatem facilis
     facere, quis quia ad necessitatibus. Cumque beatae sequi tenetur a molestiae voluptas ab, eius accusantium iste.
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus ipsum impedit ducimus quisquam cupiditate sint, iste laborum esse non? Ducimus voluptate illo corporis corrupti ex officia eligendi cumque laboriosam velit?
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam commodi rem sunt at necessitatibus architecto corporis consequatur facilis tempora cupiditate ratione dolorem quaerat sequi, totam rerum aliquid qui doloremque laborum.
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus ipsum impedit ducimus quisquam cupiditate sint,
+    iste laborum esse non? Ducimus voluptate illo corporis corrupti ex officia eligendi cumque laboriosam velit?
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam commodi rem sunt at necessitatibus architecto
+    corporis consequatur facilis tempora cupiditate ratione dolorem quaerat sequi, totam rerum aliquid qui doloremque
+    laborum.
   </div>
 
   <div style="height: 1000px;"></div>
@@ -103,6 +106,19 @@
       modal.removeClass('show-modal');
     } else {
       modal.addClass('show-modal');
+    }
+  })
+
+  // 이벤트관련 함수들
+  document.querySelector('.black-bg').addEventListener('click', function(e){
+    // e.target 실제로 누른거
+    // e.currentTarget 이벤트리스너가 달린곳 this ㅇㅇ
+    // e.preventDefault() 
+    // e.stopPropagation() 이벤트버블링 막아줌
+    // ejQuery로 찍은거랑 document로 찍은거랑은 다르게 나옴, jQuery는 $().is($(~~~)) 이렇게 쓰자
+    if (e.target == document.querySelector('.black-bg')) {
+      console.log(e.target)
+      modal.removeClass('show-modal')
     }
   })
 
@@ -216,7 +232,7 @@
     }
   })
   let isRead = false
-  document.querySelector('.Lorem').addEventListener('scroll', function(){
+  document.querySelector('.Lorem').addEventListener('scroll', function () {
     // const scrolled = loremDiv.scrollTop
     // const scrollHeight = loremDiv.ScrollHeight
     // const height = loremDiv.clientHeight
@@ -224,8 +240,8 @@
     const loremDiv = document.querySelector('.Lorem')
     console.log(loremDiv.clientHeight)
     const isBottom = loremDiv.scrollHeight - loremDiv.clientHeight <= loremDiv.scrollTop + 1
-    if(isBottom){
-      if (!isRead){
+    if (isBottom) {
+      if (!isRead) {
         console.log(isRead)
         isRead = true
         alert('약관에 동의해 주십시오')
@@ -235,11 +251,16 @@
 
   // 스크롤 할 때마다 진행도를 표시해주는 코드
   const progressBar = document.querySelector('.progress-bar')
-  window.addEventListener('scroll', function(){
+
+  window.addEventListener('scroll', function () {
     const scrollHeight = document.documentElement.scrollHeight
-    const scrollTop = document.documentElement.scrollTop  // 현재 스크롤의 위치
+    const scrollTop = document.documentElement.scrollTop
     const height = document.documentElement.clientHeight
-    progressBar.style.width = ((scrollTop) / scrollHeight) * 100 + '%'
+
+    // 스크롤 위치의 비율을 계산하여 진행도를 조절
+    const scrolled = scrollTop / (scrollHeight - height)
+    progressBar.style.width = scrolled * 100 + '%'
+
     console.log(progressBar.style.width)
   })
 
