@@ -37,23 +37,21 @@
             </div>
         </div>
     </div>
-
     <form class="container my-5 form-group">
         <p>상품선택</p>
         <select class="form-select mt-2" id="product" onchange="changeOption()">
             <option>--선택하세요--</option>
             <option>모자</option>
             <option>셔츠</option>
+            <option>바지</option>
         </select>
         <select class="hide form-select mt-2" id="option">
-            <option>100</option>
-            <option>200</option>
         </select>
     </form>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+        </script>
 </body>
 <script>
     var products = [
@@ -61,7 +59,6 @@
         { id: 1, price: 50000, title: 'Springfield Shirt' },
         { id: 2, price: 60000, title: 'Black Monastery' }
     ];
-
     const cardBody = document.querySelectorAll('.card-body')
     for (let i = 0; i < cardBody.length; i++) {
         cardBody[i].querySelector('.card-title').innerHTML = products[i].title
@@ -74,10 +71,29 @@
     const changeOption = () => {
         const product = document.querySelector('#product')
         const option = document.querySelector('#option')
+        const hats = ['S', 'M', 'L']
+        const shirts = [95, 100, 105]
+        const pants = [26, 28, 30]
+
         if (product.value === '모자') {
+            option.innerHTML = ''
+            hats.forEach(function(a){
+                option.insertAdjacentHTML('beforeend', `<option>${a}</option>`)
+            })
             option.classList.remove('hide')
             option.classList.add('show')
         } else if (product.value === '셔츠') {
+            option.innerHTML = ''
+            shirts.forEach(function(a){
+                option.insertAdjacentHTML('beforeend', `<option>${a}</option>`)
+            })
+            option.classList.remove('hide')
+            option.classList.add('show')
+        } else if (product.value === '바지') {
+            option.innerHTML = ''
+            pants.forEach(function(a){
+                option.insertAdjacentHTML('beforeend', `<option>${a}</option>`)
+            })
             option.classList.remove('hide')
             option.classList.add('show')
         } else {
@@ -85,6 +101,14 @@
             option.classList.remove('show')
         }
     }
+    var a = document.createElement('p')
+    a.innerHTML = '응애'
+    document.querySelector('#test').appendChild(a)
+
+    // var template = '<p>hi<p>'
+    // document.querySelector('#test').insertAdjacentHTML('beforeend', template)
+    // $('#test').html(template)
+
 </script>
 
 </html>
