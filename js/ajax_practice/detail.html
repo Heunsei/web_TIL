@@ -10,12 +10,10 @@
 <body>
     <div class="container">
         <div class="row" id="card-box">
-            <div class="col-sm-4">
-                <img src="https://via.placeholder.com/600" class="w-100">
-                <h5>Card title</h5>
-                <p>가격 : 70000</p>
-            </div>
         </div>
+    </div>
+    <div class="container">
+        <button id="moreView">더보기</button>
     </div>
     <script src="https://code.jquery.com/jquery-3.7.1.js"
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
@@ -26,15 +24,42 @@
         { id: 1, price: 50000, title: 'Springfield Shirt' },
         { id: 2, price: 60000, title: 'Black Monastery' }
     ];
-    const cardBox = $('#card-box')
-    for(let i=0; i<products.length; i++){
-        const template = `<div class="col-sm-4">
-                <img src="https://via.placeholder.com/600" class="w-100">
-                <h5>${}</h5>
-                <p>가격 : 70000</p>
-            </div>`
-        cardBox.
-    }
+    const cardBox = document.querySelector('#card-box')
+    let isCardboxOpen = false
+    // for (let i = 0; i < products.length; i++) {
+    //     const template = `<div class="col-sm-4">
+    //             <img src="https://via.placeholder.com/600" class="w-100">
+    //             <h5>${products[i].title}</h5>
+    //             <p>가격 : ${products[i].price}</p>
+    //             </div>`
+    //     cardBox.insertAdjacentHTML('beforeend', template)
+    // }
+
+    // https://codingapple1.github.io/js/more1.json
+    $('#moreView').on('click', function () {
+        $.get('https://codingapple1.github.io/js/more1.json')
+            .done((data) => {
+                if (!isCardboxOpen) {
+                    isCardboxOpen = true
+                    data.forEach(e => {
+                        const template = `<div class="col-sm-4">
+                        <img src="https://via.placeholder.com/600" class="w-100">
+                        <h5>${e.title}</h5>
+                        <p>가격 : ${e.price}</p>
+                        </div>`
+                        cardBox.insertAdjacentHTML('beforeend', template)
+                        // $('#cardBox').append(templtate)
+                        document.querySelector('#moreView').style.display = 'none'
+                        // jquery => $('#moreView').hide();
+                    });
+                }else{
+                    isCardboxOpen = false
+                    cardBox.innerHTML = ''
+                }
+
+            })
+    })
 
 </script>
+
 </html>
