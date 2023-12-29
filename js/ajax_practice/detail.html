@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="main.css">
 </head>
 
 <body>
@@ -14,6 +15,8 @@
     </div>
     <div class="container">
         <button id="moreView">더보기</button>
+        <button id="sortBtn" class="hide">정렬하기</button>
+        <button id="removeBtn" class="hide">접기</button>
     </div>
     <script src="https://code.jquery.com/jquery-3.7.1.js"
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
@@ -25,6 +28,8 @@
         { id: 2, price: 60000, title: 'Black Monastery' }
     ];
     const cardBox = document.querySelector('#card-box')
+    const removeBtn = document.querySelector('#removeBtn')
+    const sortBtn = document.querySelector('#sortBtn')
     let isCardboxOpen = false
     // for (let i = 0; i < products.length; i++) {
     //     const template = `<div class="col-sm-4">
@@ -49,14 +54,46 @@
                         </div>`
                         cardBox.insertAdjacentHTML('beforeend', template)
                         // $('#cardBox').append(templtate)
-                        document.querySelector('#moreView').style.display = 'none'
+                        document.querySelector('#moreView').classList.add('hide')
                         // jquery => $('#moreView').hide();
-                    });
-                }else{
-                    isCardboxOpen = false
-                    cardBox.innerHTML = ''
+                    })
+                    sortBtn.classList.remove('hide')
+                    removeBtn.classList.remove('hide')
                 }
-
+            })
+    })
+    
+    $('#removeBtn').on('click', function(){
+        document.querySelector('#moreView').classList.remove('hide')
+        isCardboxOpen = false
+        cardBox.innerHTML = ''
+        sortBtn.classList.add('hide')
+        removeBtn.classList.add('hide')
+    })
+    
+    $('#sortBtn').on('click', function(){
+        cardBox.innerHTML = ''
+        isCardboxOpen = false
+        $.get('https://codingapple1.github.io/js/more1.json')
+            .done((data) => {
+                if (!isCardboxOpen) {
+                    data.sort(function(a,b){
+                        return a.price - b.price
+                    });
+                    console.log(data)
+                    isCardboxOpen = true
+                    data.forEach(e => {
+                        const template = `<div class="col-sm-4">
+                        <img src="https://via.placeholder.com/600" class="w-100">
+                        <h5>${e.title}</h5>
+                        <p>가격 : ${e.price}</p>
+                        </div>`
+                        cardBox.insertAdjacentHTML('beforeend', template)
+                        // $('#cardBox').append(templtate)
+                        document.querySelector('#moreView').classList.add('hide')
+                        // jquery => $('#moreView').hide();
+                    })
+                }
             })
     })
 
