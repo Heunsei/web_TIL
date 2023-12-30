@@ -10,13 +10,16 @@
 
 <body>
     <div class="container">
+        <div class="container">
+            <button id="PriceSortBtn" class="hide">가격순 정렬하기</button>
+            <button id="AbcSortBtn" class="hide">가나다순 정렬하기</button>
+            <button id="removeBtn" class="hide">접기</button>
+        </div>
         <div class="row" id="card-box">
         </div>
     </div>
     <div class="container">
         <button id="moreView">더보기</button>
-        <button id="sortBtn" class="hide">정렬하기</button>
-        <button id="removeBtn" class="hide">접기</button>
     </div>
     <script src="https://code.jquery.com/jquery-3.7.1.js"
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
@@ -29,7 +32,7 @@
     ];
     const cardBox = document.querySelector('#card-box')
     const removeBtn = document.querySelector('#removeBtn')
-    const sortBtn = document.querySelector('#sortBtn')
+    const priceSortBtn = document.querySelector('#PriceSortBtn')
     let isCardboxOpen = false
     // for (let i = 0; i < products.length; i++) {
     //     const template = `<div class="col-sm-4">
@@ -51,13 +54,15 @@
                         <img src="https://via.placeholder.com/600" class="w-100">
                         <h5>${e.title}</h5>
                         <p>가격 : ${e.price}</p>
+                        <button class = "buy">장바구니</button>
                         </div>`
                         cardBox.insertAdjacentHTML('beforeend', template)
                         // $('#cardBox').append(templtate)
                         document.querySelector('#moreView').classList.add('hide')
                         // jquery => $('#moreView').hide();
                     })
-                    sortBtn.classList.remove('hide')
+                    priceSortBtn.classList.remove('hide')
+                    $('#AbcSortBtn').removeClass('hide')
                     removeBtn.classList.remove('hide')
                 }
             })
@@ -67,11 +72,12 @@
         document.querySelector('#moreView').classList.remove('hide')
         isCardboxOpen = false
         cardBox.innerHTML = ''
-        sortBtn.classList.add('hide')
+        priceSortBtn.classList.add('hide')
+        $('#AbcSortBtn').addClass('hide')
         removeBtn.classList.add('hide')
     })
     
-    $('#sortBtn').on('click', function(){
+    $('#PriceSortBtn').on('click', function(){
         cardBox.innerHTML = ''
         isCardboxOpen = false
         $.get('https://codingapple1.github.io/js/more1.json')
@@ -87,6 +93,38 @@
                         <img src="https://via.placeholder.com/600" class="w-100">
                         <h5>${e.title}</h5>
                         <p>가격 : ${e.price}</p>
+                        <button class = "buy">장바구니</button>
+                        </div>`
+                        cardBox.insertAdjacentHTML('beforeend', template)
+                        // $('#cardBox').append(templtate)
+                        document.querySelector('#moreView').classList.add('hide')
+                        // jquery => $('#moreView').hide();
+                    })
+                }
+            })
+    })
+    $('#AbcSortBtn').on('click', function(){
+        cardBox.innerHTML = ''
+        isCardboxOpen = false
+        $.get('https://codingapple1.github.io/js/more1.json')
+            .done((data) => {
+                if (!isCardboxOpen) {
+                    // return이 양수냐 음수냐로 정렬이 바뀜
+                    // 양수면 a가 오른쪽으로
+                    data.sort(function(a,b){
+                        if(a.title[0] > b.title[0]) return 1
+                        else return -1
+                    });
+                    console.log(data)
+                    isCardboxOpen = true
+                    // filter(function(e) return e.price<60000)
+                    // true인 것들만 가져와줌
+                    data.forEach((e) => {
+                        const template = `<div class="col-sm-4">
+                        <img src="https://via.placeholder.com/600" class="w-100">
+                        <h5>${e.title}</h5>
+                        <p>가격 : ${e.price}</p>
+                        <button class = "buy">장바구니</button>
                         </div>`
                         cardBox.insertAdjacentHTML('beforeend', template)
                         // $('#cardBox').append(templtate)
@@ -97,6 +135,13 @@
             })
     })
 
+    // localStorage.setItem('key', 'val')
+    // localStorage.getItem('key')
+    // localStorage.removeItem('key')
+    cardBox.addEventListener('click', function(e){
+        console.log(e.currentTarget.children)
+    })
+    
 </script>
 
 </html>
