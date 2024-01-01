@@ -131,6 +131,12 @@
                         document.querySelector('#moreView').classList.add('hide')
                         // jquery => $('#moreView').hide();
                     })
+                    let btn = document.querySelectorAll('.buy')
+                    btn.forEach((e) => {
+                        e.addEventListener('click', function(){
+                            console.log(e.parentElement)
+                        })
+                    })
                 }
             })
     })
@@ -138,10 +144,6 @@
     // localStorage.setItem('key', 'val')
     // localStorage.getItem('key')
     // localStorage.removeItem('key')
-    cardBox.addEventListener('click', function(e){
-        console.log(e.currentTarget.children)
-    })
-    
 </script>
 
 </html>
