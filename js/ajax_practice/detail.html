@@ -134,7 +134,12 @@
                     let btn = document.querySelectorAll('.buy')
                     btn.forEach((e) => {
                         e.addEventListener('click', function(){
-                            console.log(e.parentElement)
+                            const selectedTitle = e.parentElement.children[1].innerHTML
+                            const selectedProduct = data.find(data => data.title === selectedTitle)
+                            // console.log(selectedTitle)
+                            // console.log(data.find(data => data.title === selectedTitle))
+                            console.log(selectedProduct)
+                            console.log(localStorage.getItem('price'))
                         })
                     })
                 }
