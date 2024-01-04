@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .grey {
+            background: lightgray;
+            height: 2000px;
+            margin-top: 500px;
+        }
+
+        .image {
+            float: right;
+            width: 400px;
+            position: sticky;
+            top: 100px
+        }
+
+        .text {
+            float: left;
+            width: 300px;
+        }
+    </style>
+</head>
+
+<body style="background: gray; height: 3000px;">
+    <div class="grey">
+        <div class="image">
+            <img src="cat.jpg" alt="cat" width="100%">
+        </div>
+        <div style="clear: both;"></div>
+        <div class="text">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam officia sint quia error nulla ipsa
+            perferendis adipisci harum, fugiat voluptatibus mollitia omnis atque aspernatur maiores rerum! Eos nam quasi
+            doloremque?
+        </div>
+        <div style="clear: both;"></div>
+        <div class="text" style="margin-top: 300px;">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam officia sint quia error nulla ipsa
+            perferendis adipisci harum, fugiat voluptatibus mollitia omnis atque aspernatur maiores rerum! Eos nam quasi
+            doloremque?
+        </div>
+    </div>
+</body>
+<script>
+    // position fixed는 그냥 박아버리지만 sticky는 조건부로 fixed시켜줌
+    // 그림이 딱 만났을 때 상단에서 100px위치에서 고정됨
+    // 스크롤이 끝마칠 때, 부모 박스를 넘어갈 때 해제됨
+    // 스크롤 얼마만큼 했을 때, 이미지 바꾸게 해주세요 자바스크립트를 써서 구현 가능
+</script>
+</html>
