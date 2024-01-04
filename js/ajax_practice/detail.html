@@ -44,6 +44,30 @@
     // }
 
     // https://codingapple1.github.io/js/more1.json
+
+    // 장바구니 버튼 누를 때 마다 localStorage에 데이터를 추가하는 과정
+    const addCartBtn = (data) => {
+        let btn = document.querySelectorAll('.buy')
+        btn.forEach((e) => {
+            e.addEventListener('click', function () {
+                const selectedTitle = e.parentElement.children[1].innerHTML;
+                const selectedProduct = data.find((product) => product.title === selectedTitle);
+                console.log(selectedProduct);
+
+                if (localStorage.getItem('cart') === null) {
+                    // 비어있다면
+                    const toAdd = JSON.stringify([selectedProduct]);
+                    localStorage.setItem('cart', toAdd);
+                } else {
+                    // 비어있지 않다면
+                    let existingCartArray = JSON.parse(localStorage.getItem('cart'));
+                    existingCartArray.push(selectedProduct);
+                    localStorage.setItem('cart', JSON.stringify(existingCartArray));
+                }
+            });
+        });
+    }
+
     $('#moreView').on('click', function () {
         $.get('https://codingapple1.github.io/js/more1.json')
             .done((data) => {
@@ -64,11 +88,12 @@
                     priceSortBtn.classList.remove('hide')
                     $('#AbcSortBtn').removeClass('hide')
                     removeBtn.classList.remove('hide')
+                    addCartBtn(data)
                 }
             })
     })
-    
-    $('#removeBtn').on('click', function(){
+
+    $('#removeBtn').on('click', function () {
         document.querySelector('#moreView').classList.remove('hide')
         isCardboxOpen = false
         cardBox.innerHTML = ''
@@ -76,14 +101,14 @@
         $('#AbcSortBtn').addClass('hide')
         removeBtn.classList.add('hide')
     })
-    
-    $('#PriceSortBtn').on('click', function(){
+
+    $('#PriceSortBtn').on('click', function () {
         cardBox.innerHTML = ''
         isCardboxOpen = false
         $.get('https://codingapple1.github.io/js/more1.json')
             .done((data) => {
                 if (!isCardboxOpen) {
-                    data.sort(function(a,b){
+                    data.sort(function (a, b) {
                         return a.price - b.price
                     });
                     console.log(data)
@@ -100,10 +125,12 @@
                         document.querySelector('#moreView').classList.add('hide')
                         // jquery => $('#moreView').hide();
                     })
+                    addCartBtn(data)
                 }
             })
     })
-    $('#AbcSortBtn').on('click', function(){
+
+    $('#AbcSortBtn').on('click', function () {
         cardBox.innerHTML = ''
         isCardboxOpen = false
         $.get('https://codingapple1.github.io/js/more1.json')
@@ -111,8 +138,8 @@
                 if (!isCardboxOpen) {
                     // return이 양수냐 음수냐로 정렬이 바뀜
                     // 양수면 a가 오른쪽으로
-                    data.sort(function(a,b){
-                        if(a.title[0] > b.title[0]) return 1
+                    data.sort(function (a, b) {
+                        if (a.title[0] > b.title[0]) return 1
                         else return -1
                     });
                     console.log(data)
@@ -131,25 +158,7 @@
                         document.querySelector('#moreView').classList.add('hide')
                         // jquery => $('#moreView').hide();
                     })
-                    let btn = document.querySelectorAll('.buy')
-                    btn.forEach((e) => {
-                        e.addEventListener('click', function(){
-                            const selectedTitle = e.parentElement.children[1].innerHTML
-                            const selectedProduct = data.find(data => data.title === selectedTitle)
-                            // console.log(selectedTitle)
-                            // console.log(data.find(data => data.title === selectedTitle))
-                            console.log(selectedProduct)
-                            console.log(localStorage.getItem('cart'))
-                            if(localStorage.getItem('cart') === null){
-                                let cart = []
-                                cart.push(selectedProduct)
-                                const toAdd = JSON.stringify(cart)
-                                localStorage.setItem('cart', toAdd)
-                            }else{
-                                // 여기에 배열 가져와서 넣어주는거 해야함
-                            }
-                        })
-                    })
+                    addCartBtn(data)
                 }
             })
     })
