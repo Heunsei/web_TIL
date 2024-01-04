@@ -139,7 +139,15 @@
                             // console.log(selectedTitle)
                             // console.log(data.find(data => data.title === selectedTitle))
                             console.log(selectedProduct)
-                            console.log(localStorage.getItem('price'))
+                            console.log(localStorage.getItem('cart'))
+                            if(localStorage.getItem('cart') === null){
+                                let cart = []
+                                cart.push(selectedProduct)
+                                const toAdd = JSON.stringify(cart)
+                                localStorage.setItem('cart', toAdd)
+                            }else{
+                                // 여기에 배열 가져와서 넣어주는거 해야함
+                            }
                         })
                     })
                 }
