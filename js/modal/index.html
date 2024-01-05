@@ -110,7 +110,7 @@
   })
 
   // 이벤트관련 함수들
-  document.querySelector('.black-bg').addEventListener('click', function(e){
+  document.querySelector('.black-bg').addEventListener('click', function (e) {
     // e.target 실제로 누른거
     // e.currentTarget 이벤트리스너가 달린곳 this ㅇㅇ
     // e.preventDefault() 
@@ -220,6 +220,29 @@
     document.querySelector('.slide-container').style.transform = 'translateX(' + translateValue + ')';
   })
 
+  // 캐러셀 스와이프 기능
+  let swipeStartPosition = 0
+  let isClicked = false
+
+  document.querySelectorAll('.slide-box')[0].addEventListener('mousedown', function (e) {
+    swipeStartPosition = e.clientX
+    isClicked = true
+  })
+
+
+  document.querySelectorAll('.slide-box')[0].addEventListener('mouseup', function () {
+    console.log('아니이게왜아애애')
+    isClicked = false
+  })
+
+  document.querySelectorAll('.slide-box')[0].addEventListener('mousemove', function (e) {
+    if (isClicked) {
+      const moveDis = e.clientX - swipeStartPosition
+      console.log(`움직인 거리 : ${moveDis}`)
+      document.querySelector('.slide-container').style.transform = `translateX(${moveDis}px)`
+    }
+  })
+
   // 스크롤 관련 js
   // $(window).on('scroll', funciton(){})
   // .scrollTop() scrollY랑 똑같음
@@ -260,8 +283,7 @@
     // 스크롤 위치의 비율을 계산하여 진행도를 조절
     const scrolled = scrollTop / (scrollHeight - height)
     progressBar.style.width = scrolled * 100 + '%'
-
-    console.log(progressBar.style.width)
+    // console.log(progressBar.style.width)
   })
 
 </script>

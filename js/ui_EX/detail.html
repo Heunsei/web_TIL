@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="main.css">
+    <title>UI make</title>
+</head>
+<body>
+    <div class="card-background">
+        <div class ="card-box">
+            <img src="card1.png" alt="card1">
+        </div>
+        <div class ="card-box">
+            <img src="card2.png" alt="card1">
+        </div>
+        <div class ="card-box">
+            <img src="card3.png" alt="card1">
+        </div>
+    </div>
+</body>
+<script>
+    // 뷰포트가 스크롤 될 때 마다 함수 실행
+    $(window).scroll(function(){
+        const height = $(window).scrollTop();
+        // console.log(height)
+        // 시작점 600
+        // 끝점 1000
+        // card-box를 여러개 찾았을 때 0번쨰
+        const opacityY = (-1/400) * height + 3.0
+        const scaleY = (-1/4000) * height + 1.15;
+        // console.log(`스케일 Y : ${scaleY}`)
+        $('.card-box').eq(0).css('opacity', opacityY)
+        $('.card-box').eq(0).css('transform', `scale(${scaleY})`)
+    })
+
+    // window.addEventListener('scroll', function() {
+    //     const height = window.scrollY;
+    //     console.log(height);
+    //     // 시작점 600
+    //     // 끝점 1000
+    //     // card-box를 여러개 찾았을 때 0번쨰
+    //     const opacityY = (-1 / 400) * height + 3.0;
+    //     const scaleY = (-1 / 4000) * height + 565 / 500;
+    //     console.log(`스케일 Y : ${scaleY}`);
+        
+    //     // 여러 개의 card-box 요소가 있다면 해당 인덱스를 지정
+    //     const cardBox = document.querySelectorAll('.card-box')[0];
+
+    //     if (cardBox) {
+    //         cardBox.style.opacity = opacityY;
+    //         cardBox.style.transform = `scale(${scaleY})`;
+    //     }
+    // });
+</script>
+</html>
