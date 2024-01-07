@@ -96,6 +96,7 @@ function App() {
         console.log(inputValue)
         }
       }/>
+      <button></button>
 
       {
         testArr.map((item) => {
