@@ -13,7 +13,12 @@ function App() {
 
   let num = [1, 2];
   // likePlue > state변경함수
-  let [like, likePlus] = useState(0)
+  let [like, setLike] = useState([0, 0, 0])
+  // ui를 state로 저장
+  let [modal, setModal] = useState(false)
+  const testArr = [1,2,3]
+  // map 사용법
+  // 자료갯수만큼 코드 실행해줌
 
   // 자바스크립트에서의 데이터 저장은 데이터를 램에 저장해놓고 변수가 데이터를 가리키만함
   // 배열이나 오브젝트는 참조형 타입이기 때문에 사본을 만들어서 수정해야함
@@ -26,28 +31,98 @@ function App() {
   //   })
   // }
 
+  function updateLike(i){
+    let copy = [...like]
+    copy[i] += 1
+    setLike(copy)
+  }
+
   return (
     <div className="App">
       <div className="black-nav">
         <h4>블로그</h4>
       </div>
       <button onClick={() => {
-          let copy = [...postTitles];
-          copy[0] = '이거에요';
-          changeTitle(copy);
-        }}>첫번째를 바꿔볼게요</button>
-      <div className="list">
-        <h4 style={{ color: 'red' }}> { postTitles[0] } </h4>
-        <button onClick={ () => {likePlus(like+1)} }>👍</button> { like }
-      </div>
-      <div className="list">
-        <h4 style={{ color: 'red' }}>{ postTitles[1] }</h4>
-      </div>
-      <div className="list">
-        <h4 style={{ color: 'red' }}>{ postTitles[2] }</h4>
-      </div>
+        let copy = [...postTitles];
+        copy[0] = '이거에요';
+        changeTitle(copy);
+      }}>첫번째를 바꿔볼게요</button>
+      <button onClick={() => {
+        let copy = [...postTitles]
+        copy.sort()
+        changeTitle(copy)
+      }}>가나다순 정렬</button>
+
+      <>
+        {
+          postTitles.map((item, i) => {
+            return(
+              // 왼쪽 array 자료만큼 내부코드 실행
+              // return 오른쪽에 있는걸 array로 담아줌
+              // i는 내부 map돌때마다 하나씩 증가
+              <div className='list' key={item}>
+                <p>{i}번째 게시글</p>
+                <h4 onClick={() => {
+                  if(modal){
+                    setModal(false)
+                  }else{
+                    setModal(true)
+                  }
+                }
+                }>{item}</h4>
+                <button onClick={() => { updateLike(i) }}>👍</button> {like[i]}
+              </div>
+            )
+          })
+        }
+      </>  
+
+      {
+        modal == true ? <Modal/> : null
+      }
+
+      {
+        testArr.map((item) => {
+          return(
+            <div key={item}>실험</div>
+          )
+        })
+      }
     </div>
+    
   );
 }
+
+// const modal = () => { return(dasdasd)} 가능 ㅇㅇ
+
+function Modal() {
+  return (
+    <>
+      <div className="modal">
+        <h4>제목</h4>
+        <p>날짜</p>
+        <p>상세내용</p>
+      </div>
+      <div></div>
+    </>
+  )
+}
+
+// 동적인 ui 만들기
+// 1. html css로 디자인 완성
+// 2. UI의 상태를 state로 저장
+// 3. state 에 따라 조건문으로 작성
+// {} 안은 html을 써야해서 if가아니라 삼항연산자를 써야함
+
+// 반복문으로 만들기
+// var 어레이 = [];
+// for (var i = 0; i < 3; i++) {
+//   어레이.push(<div>안녕</div>)
+// }
+// return (
+//   <div>
+//     { 어레이 }
+//   </div>
+// )
 
 export default App;

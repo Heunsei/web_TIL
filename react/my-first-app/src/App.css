@@ -49,8 +49,16 @@
   box-sizing: border-box;
 }
 
-.list{
-  padding-left: 20px;
+.list {
+  padding: 20px;
   text-align: left;
+  border-top: 1px solid grey;
   border-bottom: 1px solid grey;
+}
+
+.modal {
+  margin-top: 20px;
+  padding: 20px;
+  background: #eee;
+  text-align: left;
 }
