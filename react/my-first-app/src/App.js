@@ -9,7 +9,7 @@ function App() {
   // a는 남자 코트 추천, b는 state를 변경을 도와주는 함수
   // useState 는 ref같은 용도인거 같음 데이터 바인딩 후 
   // state안에 있는 정보가 바뀌면 html이 자동으로 바뀜
-  let [postTitles, changeTitle] = useState(['첫번째', '두번째', '세번째'])
+  let [postTitles, setPostTitles] = useState(['첫번째', '두번째', '세번째'])
 
   let num = [1, 2];
   // likePlue > state변경함수
@@ -19,7 +19,8 @@ function App() {
   const testArr = [1,2,3]
   // map 사용법
   // 자료갯수만큼 코드 실행해줌
-
+  let [titleIndex, setTitleIndex] = useState(0)
+  let [inputValue, setInputValue] = useState('')
   // 자바스크립트에서의 데이터 저장은 데이터를 램에 저장해놓고 변수가 데이터를 가리키만함
   // 배열이나 오브젝트는 참조형 타입이기 때문에 사본을 만들어서 수정해야함
   // const updatePostTitle = () => {
@@ -37,6 +38,15 @@ function App() {
     setLike(copy)
   }
 
+  function modalControl(i){
+    setTitleIndex(i)
+    if(modal){
+      setModal(false)
+    }else{
+      setModal(true)
+    }
+  }
+
   return (
     <div className="App">
       <div className="black-nav">
@@ -45,12 +55,12 @@ function App() {
       <button onClick={() => {
         let copy = [...postTitles];
         copy[0] = '이거에요';
-        changeTitle(copy);
+        setPostTitles(copy);
       }}>첫번째를 바꿔볼게요</button>
       <button onClick={() => {
         let copy = [...postTitles]
         copy.sort()
-        changeTitle(copy)
+        setPostTitles(copy)
       }}>가나다순 정렬</button>
 
       <>
@@ -62,15 +72,14 @@ function App() {
               // i는 내부 map돌때마다 하나씩 증가
               <div className='list' key={item}>
                 <p>{i}번째 게시글</p>
-                <h4 onClick={() => {
-                  if(modal){
-                    setModal(false)
-                  }else{
-                    setModal(true)
-                  }
-                }
+                <h4 onClick={() => { modalControl(i) }
                 }>{item}</h4>
                 <button onClick={() => { updateLike(i) }}>👍</button> {like[i]}
+                <button onClick={() => {
+                  const copy = [...postTitles]
+                  copy[i] = '바뀌었나요?'
+                  setPostTitles(copy)
+                }}>글수정</button>
               </div>
             )
           })
@@ -78,8 +87,15 @@ function App() {
       </>  
 
       {
-        modal == true ? <Modal/> : null
+        modal == true ? <Modal postTitles={postTitles} titleIndex={titleIndex}/> : null
       }
+
+      <input type="textbox" onChange={(e) => {
+        console.log(1)
+        setInputValue(e.target.value)
+        console.log(inputValue)
+        }
+      }/>
 
       {
         testArr.map((item) => {
@@ -94,16 +110,16 @@ function App() {
 }
 
 // const modal = () => { return(dasdasd)} 가능 ㅇㅇ
-
-function Modal() {
+// 여기에서만 쓸거면 여기에 state 선언해도 될듯 ㅇㅇ
+function Modal(props) {
   return (
     <>
       <div className="modal">
-        <h4>제목</h4>
+        <h1>{props.titleIndex}</h1>
+        <h4>{props.postTitles[props.titleIndex]}</h4>
         <p>날짜</p>
         <p>상세내용</p>
       </div>
-      <div></div>
     </>
   )
 }
