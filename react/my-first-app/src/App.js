@@ -5,12 +5,10 @@ import { useState } from 'react'
 
 function App() {
   let post = '부산 팬케이크 맛집'
-
   // a는 남자 코트 추천, b는 state를 변경을 도와주는 함수
   // useState 는 ref같은 용도인거 같음 데이터 바인딩 후 
   // state안에 있는 정보가 바뀌면 html이 자동으로 바뀜
   let [postTitles, setPostTitles] = useState(['첫번째', '두번째', '세번째'])
-
   let num = [1, 2];
   // likePlue > state변경함수
   let [like, setLike] = useState([0, 0, 0])
@@ -96,7 +94,10 @@ function App() {
         console.log(inputValue)
         }
       }/>
-      <button></button>
+      {/* 제출버튼을  */}
+      <button onSubmit={() => {
+        let copy = [...postTitles]
+      }}>제출</button>
 
       {
         testArr.map((item) => {
