@@ -14,7 +14,7 @@ function App() {
   let [like, setLike] = useState([0, 0, 0])
   // ui를 state로 저장
   let [modal, setModal] = useState(false)
-  const testArr = [1,2,3]
+  const testArr = [1, 2, 3]
   // map 사용법
   // 자료갯수만큼 코드 실행해줌
   let [titleIndex, setTitleIndex] = useState(0)
@@ -30,17 +30,17 @@ function App() {
   //   })
   // }
 
-  function updateLike(i){
+  function updateLike(i) {
     let copy = [...like]
     copy[i] += 1
     setLike(copy)
   }
 
-  function modalControl(i){
+  function modalControl(i) {
     setTitleIndex(i)
-    if(modal){
+    if (modal) {
       setModal(false)
-    }else{
+    } else {
       setModal(true)
     }
   }
@@ -64,7 +64,7 @@ function App() {
       <>
         {
           postTitles.map((item, i) => {
-            return(
+            return (
               // 왼쪽 array 자료만큼 내부코드 실행
               // return 오른쪽에 있는걸 array로 담아줌
               // i는 내부 map돌때마다 하나씩 증가
@@ -82,32 +82,33 @@ function App() {
             )
           })
         }
-      </>  
+      </>
 
       {
-        modal == true ? <Modal postTitles={postTitles} titleIndex={titleIndex}/> : null
+        modal == true ? <Modal postTitles={postTitles} titleIndex={titleIndex} /> : null
       }
-
-      <input type="textbox" onChange={(e) => {
-        console.log(1)
-        setInputValue(e.target.value)
-        console.log(inputValue)
+      <form onSubmit={(event) => {
+        event.preventDefault();
+        console.log(event.target.test.value)
+      }}>
+        <input name="test" type="textbox" onChange={(e) => {
+          console.log(1)
+          setInputValue(e.target.value)
+          console.log(inputValue)
         }
-      }/>
-      {/* 제출버튼을  */}
-      <button onSubmit={() => {
-        let copy = [...postTitles]
-      }}>제출</button>
-
+        } />
+        {/* 제출버튼을 누르면 추가해주기  */}
+        <button>제출</button>
+      </form>
       {
         testArr.map((item) => {
-          return(
+          return (
             <div key={item}>실험</div>
           )
         })
       }
     </div>
-    
+
   );
 }
 
