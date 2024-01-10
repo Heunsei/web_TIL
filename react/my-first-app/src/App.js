@@ -78,6 +78,9 @@ function App() {
                   copy[i] = '바뀌었나요?'
                   setPostTitles(copy)
                 }}>글수정</button>
+                <button onClick={() => {
+                  setPostTitles(postTitles.filter((title) => title != postTitles[i]))
+                }}>글 삭제</button>
               </div>
             )
           })
@@ -90,11 +93,12 @@ function App() {
       <form onSubmit={(event) => {
         event.preventDefault();
         console.log(event.target.test.value)
+        const copy = [...postTitles]
+        copy.push(inputValue)
+        setPostTitles(copy)
       }}>
         <input name="test" type="textbox" onChange={(e) => {
-          console.log(1)
           setInputValue(e.target.value)
-          console.log(inputValue)
         }
         } />
         {/* 제출버튼을 누르면 추가해주기  */}
