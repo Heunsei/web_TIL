@@ -4,7 +4,7 @@ function Detail(props) {
 
     let { id } = useParams();
 
-    const product = props.shoes.filter((e) => e.id == id)
+    const product = props.shoes.filter((e) => e.id === id)
 
     if (id >= 3) {
         return (
@@ -15,7 +15,7 @@ function Detail(props) {
             <div className="container">
                 <div className="row">
                     <div className="col-md-6">
-                        <img src={`https://codingapple1.github.io/shop/shoes${product[0].id}.jpg`} width="100%" />
+                        <img src={`https://codingapple1.github.io/shop/shoes${product[0].id}.jpg`} width="100%" alt={`shoes${product[0].id}`}/>
                     </div>
                     <div className="col-md-6">
                         <h4 className="pt-5">{product[0].title}</h4>
