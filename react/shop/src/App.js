@@ -55,7 +55,8 @@ function App() {
                 {
                   shoes.map((item, i) => {
                     return (
-                      <ShoesBox key={item.id} item={item} i={item.id + 1} />
+                      <ShoesBox key={item.id} item={item} i={item.id + 1} 
+                      />
                     )
                   })
                 }
@@ -75,9 +76,11 @@ function App() {
 }
 
 function ShoesBox(props) {
+  const navigate = useNavigate()
   return (
     <div className="col-md-4">
-      <img src={`https://codingapple1.github.io/shop/shoes${props.i}.jpg`} width="80%" alt='shoes3'/>
+      <img src={`https://codingapple1.github.io/shop/shoes${props.i}.jpg`} width="80%" alt='shoes3'
+      onClick={() => {navigate(`/detail/${props.i}`)}}/>
       <h4>{props.item.title}</h4>
       <p>{props.item.content}</p>
     </div>
