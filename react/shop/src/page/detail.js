@@ -1,3 +1,4 @@
+import { clear } from "@testing-library/user-event/dist/clear";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import styled from "styled-components";
@@ -19,11 +20,13 @@ function Detail(props) {
     let { id } = useParams();
     let [alert, setAlert] = useState(true);
     useEffect(() => {
-        // let selectedDiv = document.querySelector('.alert')
-        setTimeout(() => {
-            // selectedDiv.classList.add('hide')
+        let a = setTimeout(() => {
             setAlert(false)
         }, 1000 * 2)
+        return () => {
+            // a있던거 지워주고 새로운 타이머 생성
+            clearTimeout(a)
+        }
     }, [])
 
     if (id >= 3) {
@@ -46,6 +49,7 @@ function Detail(props) {
                         <img src={`https://codingapple1.github.io/shop/shoes${product[0].id}.jpg`} width="100%" alt={`shoes${product[0].id}`} />
                     </div>
                     <div className="col-md-6">
+                        <input></input>
                         <h4 className="pt-5">{product[0].title}</h4>
                         <p>{product[0].content}</p>
                         <p>{product[0].price}</p>
