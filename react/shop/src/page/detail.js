@@ -1,6 +1,7 @@
 import { clear } from "@testing-library/user-event/dist/clear";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
+import { Nav } from 'react-bootstrap'
 import styled from "styled-components";
 
 // let YellowBtn = styled.button`
@@ -19,15 +20,20 @@ function Detail(props) {
 
     let { id } = useParams();
     let [alert, setAlert] = useState(true);
+    let [inputValue, setInputValue] = useState('')
+    let [tab, setTab] = useState(0)
+
     useEffect(() => {
         let a = setTimeout(() => {
             setAlert(false)
         }, 1000 * 2)
+        console.log(inputValue)
         return () => {
             // a있던거 지워주고 새로운 타이머 생성
             clearTimeout(a)
         }
-    }, [])
+    },)
+
 
     if (id >= 3) {
         return (
@@ -39,27 +45,74 @@ function Detail(props) {
         return (
             <div className="container">
                 {
-                    alert === true ? 
-                    <div className="alert alert-warning">
-                        2초이내 구매시 할인
-                    </div> : null
+                    alert === true ?
+                        <div className="alert alert-warning">
+                            2초이내 구매시 할인
+                        </div> : null
                 }
                 <div className="row">
                     <div className="col-md-6">
                         <img src={`https://codingapple1.github.io/shop/shoes${product[0].id}.jpg`} width="100%" alt={`shoes${product[0].id}`} />
                     </div>
                     <div className="col-md-6">
-                        <input></input>
+                        <input value={inputValue}
+                            onChange={(e) => {
+                                if (Number.isInteger(+e.target.value)) {
+                                    setInputValue(e.target.value)
+                                } else {
+                                    window.alert('잉')
+                                }
+                            }}
+                            className='input-value'></input>
                         <h4 className="pt-5">{product[0].title}</h4>
                         <p>{product[0].content}</p>
                         <p>{product[0].price}</p>
                         <button className="btn btn-danger">주문하기</button>
                     </div>
                 </div>
+                <Nav variant="tabs" defaultActiveKey="link0">
+                    <Nav.Item>
+                        <Nav.Link onClick={() => setTab(0)} eventKey="link0">버튼0</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link onClick={() => setTab(1)} eventKey="link1">버튼1</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link onClick={() => setTab(2)} eventKey="link2">버튼2</Nav.Link>
+                    </Nav.Item>
+                </Nav>
+                <TabContent tab = {tab}/>
             </div>
         )
     }
 
 }
+
+function TabContent({tab}) {
+    // if (tab == 0) {
+    //     return <div>내용0</div>
+    // } else if (tab == 1) {
+    //     return <div>내용1</div>
+    // } else if (tab == 2) {
+    //     return <div>내용2</div>
+    // }
+    // 버튼을 누르는거나 tab이란 state가 변하는건 똑같으니 여기서 쳐보자
+    let [fade, setFade] = useState('')
+    
+    useEffect(() => {
+        let a = setTimeout(() => {setFade('end')}, 100)
+        // automatic batching 기능 때문에 근처에 바꾸는게 있으면 하나로 합쳐서 바꿔줌
+        // setTimeout이 없으면 그냥 한번에 뗏다붙였다 해서 변화가 없는것
+        return () => {
+            clearTimeout(a)
+            setFade('')
+        }
+    },[tab])
+    return (<div className={`start ${fade}`}>
+     { [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][tab] }
+    </div>)
+}
+
+
 
 export default Detail

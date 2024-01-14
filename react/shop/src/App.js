@@ -1,17 +1,48 @@
 import { Button, Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
+import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
+import axios from 'axios'
 import { useState, Component } from "react"
 import './App.css';
 import IMG from './img/bg.png'
 import data from './data.js'
-import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
 import Detail from './page/detail.js'
 // import Test from './components/detail/detail.js'
 
 function App() {
 
   let [shoes, setShoes] = useState(data)
-
   let navigate = useNavigate()
+  let [isButton1Clicked, setIsButton1Clicked] = useState(false)
+  let [buttonCount, setButtonCount] = useState(0)
+
+  const AjaxPractice1 = () => {
+    let urlNumber = 2
+    if(buttonCount !== 0){
+      urlNumber = 3
+    }
+    if (urlNumber <= 3) {
+      setButtonCount(++buttonCount)
+      setIsButton1Clicked(true)
+      axios.get(`https://codingapple1.github.io/shop/data${urlNumber}.json`)
+        .then((data) => {
+          console.log(data.data)
+          setShoes(() => {
+            const copy = [...shoes]
+            data.data.map((item) => {
+              copy.push(item)
+            })
+            console.log(copy)
+            // 로딩중 UI지우기
+            return copy
+          }
+          )
+        })
+        .catch(() => {
+          // 로딩중 UI지우기
+          console.log('실패')
+        })
+    }
+  }
 
   return (
     <div className="App">
@@ -48,26 +79,30 @@ function App() {
             <div className="main-bg" style={{ backgroundImage: `url(${IMG})` }}></div>
             <div className="container">
               <button onClick={() => {
-                const copy = [...shoes].sort((a, b) => b.id - a.id )
+                const copy = [...shoes].sort((a, b) => b.id - a.id)
                 setShoes(copy)
               }}>sort</button>
               <div className="row">
                 {
                   shoes.map((item, i) => {
                     return (
-                      <ShoesBox key={item.id} item={item} i={item.id + 1} 
+                      <ShoesBox key={item.id} item={item} i={item.id + 1}
                       />
                     )
                   })
                 }
               </div>
             </div>
+            <button onClick={() => {
+              // 로딩중 이라는 UI띄우기
+              AjaxPractice1()
+            }}>버튼</button>
           </>
         } />
-         <Route path="/detail/:id" element={<Detail shoes={shoes} />} />
+        <Route path="/detail/:id" element={<Detail shoes={shoes} />} />
         <Route path="/about" element={<About />}>
-          <Route path="member" element={<div>멤버에요</div>}/>
-          <Route path="location" element={<div>location</div>}/>
+          <Route path="member" element={<div>멤버에요</div>} />
+          <Route path="location" element={<div>location</div>} />
         </Route>
         <Route path="*" element={<div>없는페이지</div>} />
       </Routes>
@@ -80,12 +115,14 @@ function ShoesBox(props) {
   return (
     <div className="col-md-4">
       <img src={`https://codingapple1.github.io/shop/shoes${props.i}.jpg`} width="80%" alt='shoes3'
-      onClick={() => {navigate(`/detail/${props.i}`)}}/>
+        onClick={() => { navigate(`/detail/${props.i}`) }} />
       <h4>{props.item.title}</h4>
       <p>{props.item.content}</p>
     </div>
   )
 }
+
+
 
 // const DetailPage = () => {
 //   return (
@@ -110,6 +147,17 @@ function About() {
     <div>
       <h4>회사 정보</h4>
       <Outlet></Outlet>
+    </div>
+  )
+}
+
+function Modal() {
+  return (
+    <div className="modal-background">
+      <div className="modal-content">
+        <p>로딩중 입니다</p>
+        <button>닫기</button>
+      </div>
     </div>
   )
 }
