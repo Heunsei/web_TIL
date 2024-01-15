@@ -1,8 +1,10 @@
 import { clear } from "@testing-library/user-event/dist/clear";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom"
 import { Nav } from 'react-bootstrap'
 import styled from "styled-components";
+
+import { Context1 } from './../App'
 
 // let YellowBtn = styled.button`
 //     background : ${props => props.bg};
@@ -18,19 +20,23 @@ import styled from "styled-components";
 
 function Detail(props) {
 
+    let { stock } = useContext(Context1) // 보관함에 있는거 가져와서 해체해줌
+
     let { id } = useParams();
     let [alert, setAlert] = useState(true);
     let [inputValue, setInputValue] = useState('')
     let [tab, setTab] = useState(0)
+    let [fade, setFade] = useState('')
 
     useEffect(() => {
         let a = setTimeout(() => {
             setAlert(false)
         }, 1000 * 2)
-        console.log(inputValue)
+        setFade('end')
         return () => {
             // a있던거 지워주고 새로운 타이머 생성
             clearTimeout(a)
+            setFade('')
         }
     },)
 
@@ -41,9 +47,8 @@ function Detail(props) {
         )
     } else {
         const product = props.shoes.filter((e) => e.id == id)
-
         return (
-            <div className="container">
+            <div className={`container start ${fade}`}>
                 {
                     alert === true ?
                         <div className="alert alert-warning">
@@ -81,14 +86,14 @@ function Detail(props) {
                         <Nav.Link onClick={() => setTab(2)} eventKey="link2">버튼2</Nav.Link>
                     </Nav.Item>
                 </Nav>
-                <TabContent tab = {tab}/>
+                <TabContent tab = {tab} shoes = {props.shoes}/>
             </div>
         )
     }
 
 }
 
-function TabContent({tab}) {
+function TabContent({tab, shoes}) {
     // if (tab == 0) {
     //     return <div>내용0</div>
     // } else if (tab == 1) {
@@ -98,7 +103,7 @@ function TabContent({tab}) {
     // }
     // 버튼을 누르는거나 tab이란 state가 변하는건 똑같으니 여기서 쳐보자
     let [fade, setFade] = useState('')
-    
+    let {stock} = useContext(Context1)
     useEffect(() => {
         let a = setTimeout(() => {setFade('end')}, 100)
         // automatic batching 기능 때문에 근처에 바꾸는게 있으면 하나로 합쳐서 바꿔줌
@@ -109,7 +114,7 @@ function TabContent({tab}) {
         }
     },[tab])
     return (<div className={`start ${fade}`}>
-     { [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][tab] }
+     { [<div>{shoes[0].title}</div>, <div>{shoes[1].title}</div>, <div>{shoes[2].title}</div>][+tab] }
     </div>)
 }
 

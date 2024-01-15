@@ -1,23 +1,26 @@
 import { Button, Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
+import { useState, Component, createContext } from "react"
 import axios from 'axios'
-import { useState, Component } from "react"
 import './App.css';
 import IMG from './img/bg.png'
 import data from './data.js'
 import Detail from './page/detail.js'
 // import Test from './components/detail/detail.js'
 
+export let Context1 = createContext()
+
 function App() {
 
   let [shoes, setShoes] = useState(data)
+  let [stock, setStock] = useState([10, 11, 12])
   let navigate = useNavigate()
   let [isButton1Clicked, setIsButton1Clicked] = useState(false)
   let [buttonCount, setButtonCount] = useState(0)
 
   const AjaxPractice1 = () => {
     let urlNumber = 2
-    if(buttonCount !== 0){
+    if (buttonCount !== 0) {
       urlNumber = 3
     }
     if (urlNumber <= 3) {
@@ -99,7 +102,11 @@ function App() {
             }}>버튼</button>
           </>
         } />
-        <Route path="/detail/:id" element={<Detail shoes={shoes} />} />
+        <Route path="/detail/:id" element={
+          <Context1.Provider value={{ stock }}>
+            <Detail shoes={shoes} />
+          </Context1.Provider>
+        } />
         <Route path="/about" element={<About />}>
           <Route path="member" element={<div>멤버에요</div>} />
           <Route path="location" element={<div>location</div>} />
