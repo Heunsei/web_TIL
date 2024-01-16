@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom"
 import { Nav } from 'react-bootstrap'
 import styled from "styled-components";
 
-import { Context1 } from './../App'
+import { Context1 } from '../App'
 
 // let YellowBtn = styled.button`
 //     background : ${props => props.bg};

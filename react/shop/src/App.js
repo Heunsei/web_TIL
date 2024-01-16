@@ -5,7 +5,9 @@ import axios from 'axios'
 import './App.css';
 import IMG from './img/bg.png'
 import data from './data.js'
-import Detail from './page/detail.js'
+import Detail from './page/Detail.js'
+import Cart from './page/Cart.js'
+
 // import Test from './components/detail/detail.js'
 
 export let Context1 = createContext()
@@ -107,11 +109,16 @@ function App() {
             <Detail shoes={shoes} />
           </Context1.Provider>
         } />
+        <Route path="/cart" element={<Cart />}></Route>
         <Route path="/about" element={<About />}>
           <Route path="member" element={<div>멤버에요</div>} />
           <Route path="location" element={<div>location</div>} />
         </Route>
         <Route path="*" element={<div>없는페이지</div>} />
+        <Route path="/event" element={<Event />}>
+          <Route path="one" element={<p>이것은 이벤트1</p>}></Route>
+          <Route path="two" element={<p>이것은 이벤트2</p>}></Route>
+        </Route>
       </Routes>
     </div>
   );
@@ -129,7 +136,14 @@ function ShoesBox(props) {
   )
 }
 
-
+function Event() {
+  return (
+    <div>
+      <p>이것은 이벤트 페이지</p>
+      <Outlet></Outlet>
+    </div>
+  )
+}
 
 // const DetailPage = () => {
 //   return (
