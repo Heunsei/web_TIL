@@ -38,6 +38,20 @@ function Detail(props) {
             setAlert(false)
         }, 1000 * 2)
         setFade('end')
+        let watched = localStorage.getItem('watched')
+        watched = JSON.parse(watched)
+        let isWatched = false
+        watched.map((e) => {
+            if (e == id){
+                isWatched = true
+            }
+        })
+        if(!isWatched){
+            watched.push(id)
+            watched.sort()
+            localStorage.setItem('watched', JSON.stringify(watched))
+
+        }
         return () => {
             // a있던거 지워주고 새로운 타이머 생성
             clearTimeout(a)

@@ -1,17 +1,29 @@
 import { Button, Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
-import { useState, Component, createContext } from "react"
+import { useState, useEffect, Component, createContext } from "react"
 import axios from 'axios'
 import './App.css';
 import IMG from './img/bg.png'
 import data from './data.js'
 import Detail from './page/Detail'
 import Cart from './page/Cart.js'
+import { useQuery } from 'react-query';
 
 
 export let Context1 = createContext()
 
 function App() {
+
+  useEffect(() => {
+    let checkLocalStorage = localStorage.getItem('watched')
+    if (JSON.parse(checkLocalStorage) == null) {
+      localStorage.setItem('watched', JSON.stringify([]))
+    }
+  }, [])
+
+  let obj = { name: 'kim' }
+  JSON.stringify(obj)
+  localStorage.removeItem('data')
 
   let [shoes, setShoes] = useState(data)
   let [stock, setStock] = useState([10, 11, 12])
@@ -48,6 +60,13 @@ function App() {
     }
   }
 
+  useQuery('작명', () => {
+    return axios.get('https://codingapple1.github.io/userdata.json')
+      .then((data) => {
+        return data.data
+      })
+  })
+
   return (
     <div className="App">
       <Navbar expand="lg" className="bg-body-tertiary">
@@ -69,12 +88,13 @@ function App() {
                   Separated link
                 </NavDropdown.Item>
               </NavDropdown>
+              <Nav.Link>반가워요 { }</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
       {
-        <p onClick={() => {navigate('/cart')}}>hi</p>
+        <p onClick={() => { navigate('/cart') }}>hi</p>
       }
       {/* <Link to="/">홈</Link>
       <Link to="/detail">상세페이지로 이동</Link> */}
