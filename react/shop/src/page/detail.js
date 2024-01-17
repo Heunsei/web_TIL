@@ -2,9 +2,12 @@ import { clear } from "@testing-library/user-event/dist/clear";
 import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom"
 import { Nav } from 'react-bootstrap'
-import styled from "styled-components";
-
 import { Context1 } from '../App'
+import { useDispatch, useSelector } from "react-redux";
+import { homework } from "../store/userSlice";
+import { addProduct } from "./../store/userSlice"
+
+import styled from "styled-components";
 
 // let YellowBtn = styled.button`
 //     background : ${props => props.bg};
@@ -20,6 +23,8 @@ import { Context1 } from '../App'
 
 function Detail(props) {
 
+    let dispatch = useDispatch()
+    let homework = useSelector((state) => state.homework)
     let { stock } = useContext(Context1) // 보관함에 있는거 가져와서 해체해줌
 
     let { id } = useParams();
@@ -72,7 +77,11 @@ function Detail(props) {
                         <h4 className="pt-5">{product[0].title}</h4>
                         <p>{product[0].content}</p>
                         <p>{product[0].price}</p>
-                        <button className="btn btn-danger">주문하기</button>
+                        <button className="btn btn-danger" onClick={() => {
+                            let selectedProduct = {id : `${1}`, name : `${product[0].title}`, count : `${1}`}
+                            dispatch(addProduct(selectedProduct))
+                            // console.log(homework)
+                        }}>주문하기</button>
                     </div>
                 </div>
                 <Nav variant="tabs" defaultActiveKey="link0">

@@ -5,10 +5,9 @@ import axios from 'axios'
 import './App.css';
 import IMG from './img/bg.png'
 import data from './data.js'
-import Detail from './page/Detail.js'
+import Detail from './page/Detail'
 import Cart from './page/Cart.js'
 
-// import Test from './components/detail/detail.js'
 
 export let Context1 = createContext()
 
@@ -74,7 +73,9 @@ function App() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-
+      {
+        <p onClick={() => {navigate('/cart')}}>hi</p>
+      }
       {/* <Link to="/">홈</Link>
       <Link to="/detail">상세페이지로 이동</Link> */}
 

@@ -1,12 +1,14 @@
 import { Table } from 'react-bootstrap'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { changeName,  } from './../store'
+import { changeHomework } from './../store/userSlice'
 
 function Cart() {
-
-    let a = useSelector((state) => {return state})
+    let name = useSelector((state) => state.user)
+    let arrayData = useSelector((state) => state.homework)
     // return 안에는 어떤 state만 쓸지 정할 수 있음, .user 유저 항목만 가져옴
-    console.log(a)
-
+    let dispatch = useDispatch()
+    
     return (
         <div>
             <Table>
@@ -19,12 +21,21 @@ function Cart() {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>안녕</td>
-                        <td>안녕</td>
-                        <td>안녕</td>
-                    </tr>
+                    {
+                        arrayData.map((data, i) => {
+                            return (
+                                <tr key={i}>
+                                    <td>{data.id}</td>
+                                    <td>{data.name}</td>
+                                    <td>{data.count}</td>
+                                    <td><button onClick={() => {
+                                        dispatch(changeHomework(i))
+                                        console.log(name)
+                                    }}>+</button></td>
+                                </tr>
+                            )
+                        })
+                    }
                 </tbody>
             </Table>
         </div>
