@@ -2,6 +2,7 @@
 
 import './App.css';
 import { useState } from 'react'
+import VideoDownloader from './test'
 
 function App() {
   let post = '부산 팬케이크 맛집'
@@ -50,6 +51,7 @@ function App() {
       <div className="black-nav">
         <h4>블로그</h4>
       </div>
+      <VideoDownloader/>
       <button onClick={() => {
         let copy = [...postTitles];
         copy[0] = '이거에요';

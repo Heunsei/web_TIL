@@ -1,6 +1,6 @@
 import { Table } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { changeName,  } from './../store'
+import { changeName, } from './../store'
 import { changeHomework } from './../store/userSlice'
 
 function Cart() {
@@ -8,7 +8,7 @@ function Cart() {
     let arrayData = useSelector((state) => state.homework)
     // return 안에는 어떤 state만 쓸지 정할 수 있음, .user 유저 항목만 가져옴
     let dispatch = useDispatch()
-    
+
     return (
         <div>
             <Table>

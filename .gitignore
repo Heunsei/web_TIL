@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 # Created by https://www.toptal.com/developers/gitignore/api/nextjs,windows,macos,visualstudiocode,react,vue,vuejs,node
 # Edit at https://www.toptal.com/developers/gitignore?templates=nextjs,windows,macos,visualstudiocode,react,vue,vuejs,node
+=======
+# Created by https://www.toptal.com/developers/gitignore/api/nextjs,node,react,vue,windows,macos,visualstudiocode
+# Edit at https://www.toptal.com/developers/gitignore?templates=nextjs,node,react,vue,windows,macos,visualstudiocode
+>>>>>>> bac4ad365d74c77ec782e62f0f91fd3bcd652552
 
 ### macOS ###
 # General
@@ -247,6 +252,7 @@ docs/_book
 # TODO: where does this rule come from?
 test/
 
+<<<<<<< HEAD
 ### Vuejs ###
 # Recommended template: Node.gitignore
 
@@ -254,6 +260,8 @@ dist/
 npm-debug.log
 yarn-error.log
 
+=======
+>>>>>>> bac4ad365d74c77ec782e62f0f91fd3bcd652552
 ### Windows ###
 # Windows thumbnail cache files
 Thumbs.db
@@ -280,4 +288,8 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+<<<<<<< HEAD
 # End of https://www.toptal.com/developers/gitignore/api/nextjs,windows,macos,visualstudiocode,react,vue,vuejs,node
+=======
+# End of https://www.toptal.com/developers/gitignore/api/nextjs,node,react,vue,windows,macos,visualstudiocode
+>>>>>>> bac4ad365d74c77ec782e62f0f91fd3bcd652552
