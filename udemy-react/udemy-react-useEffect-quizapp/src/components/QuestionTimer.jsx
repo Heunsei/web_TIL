@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from 'react';
 
-const QuestionTimer = ({ timeout, onTimeout }) => {
+const QuestionTimer = ({ timeout, onTimeout, mode }) => {
     const [remainingTime, setRemainingTime] = useState(timeout)
 
     useEffect(() => {
-        console.log('setting timeout')
         const timer = setTimeout(() => {
-            onTimeout()
+            if (onTimeout) {
+                onTimeout()
+            }
         }, timeout)
         return () => {
             clearTimeout(timer)
         }
     }, [onTimeout, timeout])
 
-
     useEffect(() => {
-        console.log('setting interval')
         const timer = setInterval(() => {
             setRemainingTime((prevRemainingTime) => prevRemainingTime - 100)
         }, 100);
@@ -25,7 +24,10 @@ const QuestionTimer = ({ timeout, onTimeout }) => {
     }, [])
 
     return (
-        <progress id="question-time" value={remainingTime} max={timeout} />
+        <progress id="question-time"
+            value={remainingTime}
+            max={timeout}
+            className={mode} />
     );
 };
 
