@@ -4,7 +4,6 @@ export default function Input({ label, id, error, ...props }) {
             <label htmlFor={id}>{label}</label>
             <input
                 id={id}
-                onBlur={ }
                 onChange={(event) => handleInputChange('email', event.target.value)}
                 {...props}
             />
