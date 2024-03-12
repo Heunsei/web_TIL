@@ -9,6 +9,7 @@ import HomePage from './pages/HomePage';
 import ProductsPage from './pages/ProductsPage';
 import RootLayout from './pages/Root';
 import ErrorPage from './pages/Error';
+import ProductDetailPage from './pages/ProductDetailPage';
 
 // const routeDefinitions = createRoutesFromElements(
 //   <Route>
@@ -26,12 +27,16 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: '/',
+        path: '',
         element: <HomePage />
       },
       {
-        path: '/products',
+        path: 'products',
         element: <ProductsPage />
+      },
+      {
+        path: 'products/:productId',
+        element: <ProductDetailPage />
       }
     ]
   },
