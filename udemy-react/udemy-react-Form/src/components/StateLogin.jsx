@@ -25,9 +25,6 @@ export default function StateLogin() {
     })
   }
 
-
-
-
   return (
     <form onSubmit={handleSubmit}>
       <h2>Login</h2>
