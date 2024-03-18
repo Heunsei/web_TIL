@@ -1,97 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>modal test</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  <link rel="stylesheet" href="main.css">
-</head>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>modal test</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous">
+    <link rel="stylesheet" href="main.css">
+  </head>
 
-<body>
-  <div class="black-bg">
-    <div class="white-bg">
-      <h4>로그인하세요</h4>
-      <form action="success.html" onsubmit="return loginSubmit()">
-        <div class="my-3">
-          <input type="text" class="form-control" id="id_input">
+  <body>
+    <div class="black-bg">
+      <div class="white-bg">
+        <h4>로그인하세요</h4>
+        <form action="success.html" onsubmit="return loginSubmit()">
+          <div class="my-3">
+            <input type="text" class="form-control" id="id_input">
+          </div>
+          <div class="my-3">
+            <input type="password" class="form-control" id="pw_input"
+              autocomplete="off">
+          </div>
+          <button type="submit" class="btn btn-primary"
+            id="login_submit">전송</button>
+          <button type="button" class="btn btn-danger" id="close">닫기</button>
+        </form>
+      </div>
+    </div>
+
+    <nav class="navbar navbar-light bg-light">
+      <div class="container-fluid">
+        <span class="navbar-brand">Navbar</span>
+        <span class="badge bg-dark" id="dark-btn">dark</span>
+        <button class="navbar-toggler" type="button">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+      <div class="progress-bar"></div>
+    </nav>
+
+    <ul class="list-group">
+      <li class="list-group-item">An item</li>
+      <li class="list-group-item">A second item</li>
+      <li class="list-group-item">A third item</li>
+      <li class="list-group-item">A fourth item</li>
+      <li class="list-group-item">And a fifth one</li>
+    </ul>
+    <div class="login-bg">
+      <button class="modal-btn" id="openBtn">로그인?</button>
+    </div>
+
+    <div class="alert alert-danger" id="gift-box">
+      <span id="time">5</span><span>초 이내 구매시 사은품 증정</span>
+    </div>
+
+    <div style="overflow: hidden;">
+      <div class="slide-container">
+        <div class="slide-box">
+          <img src="./img/car1.png" alt>
         </div>
-        <div class="my-3">
-          <input type="password" class="form-control" id="pw_input" autocomplete="off">
+        <div class="slide-box">
+          <img src="./img/car2.png" alt>
         </div>
-        <button type="submit" class="btn btn-primary" id="login_submit">전송</button>
-        <button type="button" class="btn btn-danger" id="close">닫기</button>
-      </form>
-    </div>
-  </div>
-
-  <nav class="navbar navbar-light bg-light">
-    <div class="container-fluid">
-      <span class="navbar-brand">Navbar</span>
-      <span class="badge bg-dark" id="dark-btn">dark</span>
-      <button class="navbar-toggler" type="button">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    </div>
-    <div class="progress-bar"></div>
-  </nav>
-
-  <ul class="list-group">
-    <li class="list-group-item">An item</li>
-    <li class="list-group-item">A second item</li>
-    <li class="list-group-item">A third item</li>
-    <li class="list-group-item">A fourth item</li>
-    <li class="list-group-item">And a fifth one</li>
-  </ul>
-  <div class="login-bg">
-    <button class="modal-btn" id="openBtn">로그인?</button>
-  </div>
-
-  <div class="alert alert-danger" id="gift-box">
-    <span id="time">5</span><span>초 이내 구매시 사은품 증정</span>
-  </div>
-
-  <div style="overflow: hidden;">
-    <div class="slide-container">
-      <div class="slide-box">
-        <img src="./img/car1.png" alt="">
-      </div>
-      <div class="slide-box">
-        <img src="./img/car2.png" alt="">
-      </div>
-      <div class="slide-box">
-        <img src="./img/car3.png" alt="">
+        <div class="slide-box">
+          <img src="./img/car3.png" alt>
+        </div>
       </div>
     </div>
-  </div>
 
-  <button class="prev">이전</button>
-  <button class="slide-1">1</button>
-  <button class="slide-2">2</button>
-  <button class="slide-3">3</button>
-  <button class="next">다음</button>
+    <button class="prev">이전</button>
+    <button class="slide-1">1</button>
+    <button class="slide-2">2</button>
+    <button class="slide-3">3</button>
+    <button class="next">다음</button>
 
-  <div class="Lorem" style="width: 200px; height: 100px; overflow-y: scroll;">
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam perspiciatis at laboriosam voluptatem facilis
-    facere, quis quia ad necessitatibus. Cumque beatae sequi tenetur a molestiae voluptas ab, eius accusantium iste.
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus ipsum impedit ducimus quisquam cupiditate sint,
-    iste laborum esse non? Ducimus voluptate illo corporis corrupti ex officia eligendi cumque laboriosam velit?
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam commodi rem sunt at necessitatibus architecto
-    corporis consequatur facilis tempora cupiditate ratione dolorem quaerat sequi, totam rerum aliquid qui doloremque
-    laborum.
-  </div>
+    <div class="Lorem" style="width: 200px; height: 100px; overflow-y: scroll;">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam
+      perspiciatis at laboriosam voluptatem facilis
+      facere, quis quia ad necessitatibus. Cumque beatae sequi tenetur a
+      molestiae voluptas ab, eius accusantium iste.
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus ipsum
+      impedit ducimus quisquam cupiditate sint,
+      iste laborum esse non? Ducimus voluptate illo corporis corrupti ex officia
+      eligendi cumque laboriosam velit?
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam commodi
+      rem sunt at necessitatibus architecto
+      corporis consequatur facilis tempora cupiditate ratione dolorem quaerat
+      sequi, totam rerum aliquid qui doloremque
+      laborum.
+    </div>
 
-  <div style="height: 1000px;"></div>
+    <div style="height: 1000px;"></div>
 
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-    crossorigin="anonymous"></script>
-</body>
-<script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"></script>
+  </body>
+  <script>
   const modal = $('.black-bg');
   const navbarToggler = $('.navbar-toggler');
 
