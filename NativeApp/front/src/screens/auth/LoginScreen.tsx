@@ -48,6 +48,7 @@ export default function LoginScreen() {
           error={'이메일을 입력해주세요'}
           inputMode="email"
           value={values.email}
+          touched={touched.email}
           onChangeText={text => handleChangeText('email', text)}
           onBlur={() => handleBlur('email')}
         />
@@ -56,6 +57,7 @@ export default function LoginScreen() {
           error={'비밀번호를 입력해주세요'}
           secureTextEntry
           value={values.password}
+          touched={touched.password}
           onChangeText={text => handleChangeText('password', text)}
           onBlur={() => handleBlur('password')}
         />
