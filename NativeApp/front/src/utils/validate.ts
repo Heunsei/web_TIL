@@ -8,6 +8,7 @@ function validateUser(values: UserInfomation) {
     email: '',
     password: '',
   };
+
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)) {
     errors.email = '올바른 이메일 형식이 아닙니다';
   }

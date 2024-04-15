@@ -7,7 +7,6 @@ interface UseFormProps<T> {
 
 function useForm<T>({initialValue, validate}: UseFormProps<T>) {
   const [values, setValues] = useState(initialValue);
-  // Record type => key, value 형태로 값을 지정해줌
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -29,6 +28,7 @@ function useForm<T>({initialValue, validate}: UseFormProps<T>) {
     const value = values[name];
     const onChangeText = (text: string) => handleChangeText(name, text);
     const onBlur = () => handleBlur(name);
+
     return {value, onChangeText, onBlur};
   };
 
@@ -37,7 +37,7 @@ function useForm<T>({initialValue, validate}: UseFormProps<T>) {
     setErrors(newErrors);
   }, [validate, values]);
 
-  return {values, touched, errors, getTextInputProps};
+  return {values, errors, touched, getTextInputProps};
 }
 
 export default useForm;
