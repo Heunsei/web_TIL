@@ -1,4 +1,4 @@
-import { basename, extname } from 'path';
+import { extname, basename } from 'path';
 
 export function getUniqueFileName(file: Express.Multer.File, id: number) {
   const ext = extname(file.originalname);
