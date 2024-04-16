@@ -4,14 +4,17 @@ import InputField from '../../components/InputField';
 import CustomButton from '../../components/CustomButton';
 import useForm from '../../hooks/useForm';
 import {validateLogin} from '../../utils';
+import useAuth from '../../hooks/queries/useAuth';
 
 // inputField에서 inputMode를 사용해 사용자의 키보드를 제어가능
 // inputMode="numeric" 사용 시 숫자키만 나오게 할 수 있음
 export default function LoginScreen() {
   const passwordRef = useRef<TextInput | null>(null);
+  const {loginMutation} = useAuth();
 
   const handleSubmit = () => {
     console.log('values', login.values);
+    loginMutation.mutate(login.values);
   };
 
   const login = useForm({
