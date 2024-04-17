@@ -14,7 +14,7 @@ import {removeEncryptStorage, setEncryptStorage} from '../../utils';
 import {removeHeader, setHeader} from '../../utils/header';
 import {useEffect} from 'react';
 import queryClient from '../../api/queryClient';
-import {queryKeys, storageKey} from '../../constants';
+import {numbers, queryKeys, storageKey} from '../../constants';
 
 // 버전 5부터는 객체로 전달해줘야함
 function useSignup(mutationOptions?: UseMutationCustomOptions) {
@@ -60,9 +60,9 @@ function useGetRefreshToken() {
     // 사용을 위한 쿼리 키 전달
     queryKey: [queryKeys.AUTH, queryKeys.GET_ACCESS_TOKEN],
     queryFn: getAccessToken,
-    staleTime: 1000 * 60 * 30 - 1000 * 6 * 3,
+    staleTime: numbers.ACCESS_TOKEN_REFRESH_TIME,
     // 시간 주기에 따라 refetch
-    refetchInterval: 1000 * 60 * 30 - 1000 * 6 * 3,
+    refetchInterval: numbers.ACCESS_TOKEN_REFRESH_TIME,
     // 자동 갱신
     refetchOnReconnect: true,
     // 백그라운드에서도 refetch가능 하도록 설정
