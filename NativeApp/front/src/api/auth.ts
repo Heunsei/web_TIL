@@ -13,7 +13,6 @@ const postSignup = async ({email, password}: RequestUser): Promise<void> => {
     email,
     password,
   });
-  console.log('이거는 왜 안찍힘?', data);
   return data;
 };
 

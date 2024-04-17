@@ -1,4 +1,4 @@
-import {UseQueryOptions, useMutation, useQuery} from '@tanstack/react-query';
+import {useMutation, useQuery} from '@tanstack/react-query';
 import {
   getAccessToken,
   getProfile,
@@ -14,6 +14,7 @@ import {removeEncryptStorage, setEncryptStorage} from '../../utils';
 import {removeHeader, setHeader} from '../../utils/header';
 import {useEffect} from 'react';
 import queryClient from '../../api/queryClient';
+import {queryKeys, storageKey} from '../../constants';
 
 // 버전 5부터는 객체로 전달해줘야함
 function useSignup(mutationOptions?: UseMutationCustomOptions) {
@@ -30,16 +31,20 @@ function useLogin(mutationOptions?: UseMutationCustomOptions) {
   return useMutation({
     mutationFn: postLogin,
     onSuccess: ({accessToken, refreshToken}) => {
-      setEncryptStorage('refreshToken', refreshToken);
+      setEncryptStorage(storageKey.REFRESH_TOKEN, refreshToken);
       // 앞으로의 요청에 헤더값에 토큰을 넣지않고 기본적으로 토큰이 들어가게 됨
-      setHeader(`Authorization`, `Bearer ${accessToken}`);
+      setHeader('Authorization', `Bearer ${accessToken}`);
     },
     // 성공 실패 상관없이 실행할 함수 선언
     onSettled: () => {
       // 로그인 성공 실패 상관없이 자동갱신이 처음 로그인 했을때도 로직이 돌도록 해야함
       console.log('실행확인');
-      queryClient.refetchQueries({queryKey: ['auth', 'getAccessToken']});
-      queryClient.invalidateQueries({queryKey: ['auth', 'getProfile']});
+      queryClient.refetchQueries({
+        queryKey: [queryKeys.AUTH, queryKeys.GET_ACCESS_TOKEN],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [queryKeys.AUTH, queryKeys.GET_PROFILE],
+      });
     },
     onError: error => {
       console.log(error);
@@ -53,7 +58,7 @@ function useLogin(mutationOptions?: UseMutationCustomOptions) {
 function useGetRefreshToken() {
   const {isSuccess, data, isError} = useQuery({
     // 사용을 위한 쿼리 키 전달
-    queryKey: ['auth', 'getAccessToken'],
+    queryKey: [queryKeys.AUTH, queryKeys.GET_ACCESS_TOKEN],
     queryFn: getAccessToken,
     staleTime: 1000 * 60 * 30 - 1000 * 6 * 3,
     // 시간 주기에 따라 refetch
@@ -68,7 +73,7 @@ function useGetRefreshToken() {
     if (isSuccess) {
       // axiosInstance에 토큰을 넣어 사용할것
       setHeader('Authorization', `Bearer ${data.accessToken}`);
-      setEncryptStorage('refreshToken', data.refreshToken);
+      setEncryptStorage(storageKey.REFRESH_TOKEN, data.refreshToken);
     }
   }, [isSuccess]);
 
@@ -76,7 +81,7 @@ function useGetRefreshToken() {
     if (isError) {
       // axiosInstance에 넣어둔 토큰을 삭제하는 함수
       removeHeader('Authorization');
-      removeEncryptStorage('refreshToken');
+      removeEncryptStorage(storageKey.REFRESH_TOKEN);
     }
   }, [isError]);
   return {isSuccess, isError};
@@ -86,7 +91,7 @@ function useGetRefreshToken() {
 // useMutation처럼 옵션을 받아올 수 있도록 설정
 function useGetProfile(queryOptions: UseQueryCustomOptions) {
   return useQuery({
-    queryKey: ['auth', 'getProfile'],
+    queryKey: [queryKeys.AUTH, queryKeys.GET_PROFILE],
     queryFn: getProfile,
     ...queryOptions,
   });
@@ -97,10 +102,10 @@ function useLogout(mutationOptions?: UseMutationCustomOptions) {
     mutationFn: logout,
     onSuccess: () => {
       removeHeader('Authorization');
-      removeEncryptStorage('refreshToken');
+      removeEncryptStorage(storageKey.REFRESH_TOKEN);
     },
     onSettled: () => {
-      queryClient.invalidateQueries({queryKey: ['auth']});
+      queryClient.invalidateQueries({queryKey: [queryKeys.AUTH]});
     },
     ...mutationOptions,
   });
