@@ -1,10 +1,10 @@
 import {SafeAreaView, StyleSheet, TextInput, View} from 'react-native';
 import React, {useRef} from 'react';
-import InputField from '../../components/InputField';
-import CustomButton from '../../components/CustomButton';
-import useForm from '../../hooks/useForm';
-import {validateLogin} from '../../utils';
-import useAuth from '../../hooks/queries/useAuth';
+import InputField from '@/components/InputField';
+import CustomButton from '@/components/CustomButton';
+import useForm from '@/hooks/useForm';
+import {validateLogin} from '@/utils';
+import useAuth from '@/hooks/queries/useAuth';
 
 // inputField에서 inputMode를 사용해 사용자의 키보드를 제어가능
 // inputMode="numeric" 사용 시 숫자키만 나오게 할 수 있음
