@@ -9,6 +9,7 @@ import {MapStackParamList} from '@/navigations/stack/MapStackNavigator';
 import {DrawerNavigationProp} from '@react-navigation/drawer';
 import {MainDrawerParamList} from '@/navigations/drawer/MainDrawerNavigator';
 import useUserLocation from '@/hooks/useUserLocation';
+import usePermisison from '@/hooks/usePermission';
 
 // 두가지 props종류가 들어올거라 둘을 합쳐주는 과정을 거쳐줌
 // Navigation은 타입인데 MapStackParamList와 MainDrawerParamList를 포함하는 두 props를 합친 타입이다.
@@ -22,6 +23,8 @@ export default function MapHomeScreen() {
   const inset = useSafeAreaInsets();
   const navigation = useNavigation<Navigation>();
   const {userLocation, isUserLocationError} = useUserLocation();
+  // 원하는 권한을 넣어서 사용가능
+  usePermisison('LOCATION');
   // 맵 접근을 위한 ref선언
   const mapRef = useRef<MapView | null>(null);
 
