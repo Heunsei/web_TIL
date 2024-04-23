@@ -6,7 +6,7 @@ import {
   postLogin,
   postSignup,
 } from '@/api/auth';
-import {UseMutationCustomOptions, UseQueryCustomOptions} from '@/types/commons';
+import {UseMutationCustomOptions, UseQueryCustomOptions} from '@/types/common';
 import {removeEncryptStorage, setEncryptStorage} from '@/utils';
 import {removeHeader, setHeader} from '@/utils/header';
 import {useEffect} from 'react';
