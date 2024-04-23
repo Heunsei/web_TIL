@@ -9,6 +9,7 @@ function useAppState() {
 
   useEffect(() => {
     const subscription = AppState.addEventListener('change', nextAppState => {
+      console.log('change state');
       if (
         // 앱의 상태가 inactive 혹은 백그라운드에서 돌아오면
         appState.current.match(/inactive|background/) &&

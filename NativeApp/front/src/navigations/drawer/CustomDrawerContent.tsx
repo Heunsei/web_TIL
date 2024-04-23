@@ -17,12 +17,17 @@ import useAuth from '@/hooks/queries/useAuth';
 import {colors} from '@/constants';
 
 function CustomDrawerContent(props: DrawerContentComponentProps) {
-  // const {getProfileQuery} = useAuth();
+  const {getProfileQuery, logoutMutation} = useAuth();
   // const {email, nickname, imageUri, kakaoImageUri} = getProfileQuery.data || {};
   const email = 'test';
   const nickname = null;
   const imageUri = null;
   const kakaoImageUri = null;
+
+  const handleLogout = () => {
+    logoutMutation.mutate(null);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <DrawerContentScrollView
@@ -49,6 +54,11 @@ function CustomDrawerContent(props: DrawerContentComponentProps) {
         </View>
         <DrawerItemList {...props} />
       </DrawerContentScrollView>
+      <Pressable
+        onPress={handleLogout}
+        style={{alignItems: 'flex-end', padding: 10}}>
+        <Text>로그아웃</Text>
+      </Pressable>
     </SafeAreaView>
   );
 }

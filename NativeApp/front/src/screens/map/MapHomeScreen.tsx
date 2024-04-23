@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {Alert, Pressable, StyleSheet, Text, View} from 'react-native';
 import MapView, {
   Callout,
   LatLng,
@@ -7,19 +7,20 @@ import MapView, {
   Marker,
   PROVIDER_GOOGLE,
 } from 'react-native-maps';
+import {CompositeNavigationProp, useNavigation} from '@react-navigation/native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {DrawerNavigationProp} from '@react-navigation/drawer';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 import useAuth from '@/hooks/queries/useAuth';
-import {colors} from '@/constants';
-import {CompositeNavigationProp, useNavigation} from '@react-navigation/native';
-import {StackNavigationProp} from '@react-navigation/stack';
-import {MapStackParamList} from '@/navigations/stack/MapStackNavigator';
-import {DrawerNavigationProp} from '@react-navigation/drawer';
-import {MainDrawerParamList} from '@/navigations/drawer/MainDrawerNavigator';
-import useUserLocation from '@/hooks/useUserLocation';
 import usePermission from '@/hooks/usePermission';
+import useUserLocation from '@/hooks/useUserLocation';
+import useGetMarkers from '@/hooks/queries/useGetMarkers';
+import {alerts, colors, mapNavigations} from '@/constants';
+import {MapStackParamList} from '@/navigations/stack/MapStackNavigator';
+import {MainDrawerParamList} from '@/navigations/drawer/MainDrawerNavigator';
 import mapStyle from '@/style/mapStyle';
 import CustomMarker from '@/components/CustomMarker';
 
@@ -29,20 +30,32 @@ type Navigation = CompositeNavigationProp<
 >;
 
 function MapHomeScreen() {
+  // 노치등을 계산해서 위쪽의 여백을 줄 코드
   const inset = useSafeAreaInsets();
   const {logoutMutation} = useAuth();
   const navigation = useNavigation<Navigation>();
   const mapRef = useRef<MapView | null>(null);
   const {userLocation, isUserLocationError} = useUserLocation();
-  const [selectLocation, setSelectLocation] = useState<LatLng>();
-  usePermission('LOCATION');
+  const [selectLocation, setSelectLocation] = useState<LatLng | null>();
 
-  const handleLogout = () => {
-    logoutMutation.mutate(null);
-  };
+  const {data: markers = []} = useGetMarkers();
+  usePermission('LOCATION');
 
   const handleLongPressMapView = ({nativeEvent}: LongPressEvent) => {
     setSelectLocation(nativeEvent.coordinate);
+  };
+
+  const handlePressAddPost = () => {
+    if (!selectLocation) {
+      return Alert.alert(
+        alerts.NOT_SELECTED_LOCATION.TITLE,
+        alerts.LOCATION_PERMISSION.DESCRIPTION,
+      );
+    }
+    navigation.navigate(mapNavigations.ADD_POST, {
+      location: selectLocation,
+    });
+    setSelectLocation(null);
   };
 
   const handlePressUserLocation = () => {
@@ -70,21 +83,14 @@ function MapHomeScreen() {
         showsMyLocationButton={false}
         customMapStyle={mapStyle}
         onLongPress={handleLongPressMapView}>
-        <CustomMarker
-          color="RED"
-          coordinate={{
-            latitude: 37.5516032365118,
-            longitude: 126.98989626020192,
-          }}
-        />
-        <CustomMarker
-          color="BLUE"
-          score={1}
-          coordinate={{
-            latitude: 37.5616032365118,
-            longitude: 126.98989626020192,
-          }}
-        />
+        {markers.map(({id, color, score, ...coordinate}) => (
+          <CustomMarker
+            key={id}
+            color={color}
+            score={score}
+            coordinate={coordinate}
+          />
+        ))}
         {selectLocation && (
           <Callout>
             <Marker coordinate={selectLocation} />
@@ -98,6 +104,9 @@ function MapHomeScreen() {
         <Ionicons name="menu" color={colors.WHITE} size={25} />
       </Pressable>
       <View style={styles.buttonList}>
+        <Pressable style={styles.mapButton} onPress={handlePressAddPost}>
+          <MaterialIcons name="add" color={colors.WHITE} size={25} />
+        </Pressable>
         <Pressable style={styles.mapButton} onPress={handlePressUserLocation}>
           <MaterialIcons name="my-location" color={colors.WHITE} size={25} />
         </Pressable>
