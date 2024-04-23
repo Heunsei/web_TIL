@@ -49,7 +49,7 @@ function MapHomeScreen() {
     if (!selectLocation) {
       return Alert.alert(
         alerts.NOT_SELECTED_LOCATION.TITLE,
-        alerts.LOCATION_PERMISSION.DESCRIPTION,
+        alerts.NOT_SELECTED_LOCATION.DESCRIPTION,
       );
     }
     navigation.navigate(mapNavigations.ADD_POST, {

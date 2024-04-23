@@ -3,6 +3,10 @@ type UserInfomation = {
   password: string;
 };
 
+function isBlank(value: string) {
+  return value.trim() === '';
+}
+
 function validateUser(values: UserInfomation) {
   const errors = {
     email: '',
@@ -37,11 +41,13 @@ function validateSignup(values: UserInfomation & {passwordConfirm: string}) {
 function validateAddPost(values: {title: string}) {
   const errors = {
     title: '',
-    descrption: '',
+    description: '',
   };
-  if (values.title.trim() === '') {
-    errors.title = '제목은 1~30자 이내로입력해주세요';
+
+  if (isBlank(values.title)) {
+    errors.title = `제목은 1~30자 이내로 입력해주세요.`;
   }
+
   return errors;
 }
 
