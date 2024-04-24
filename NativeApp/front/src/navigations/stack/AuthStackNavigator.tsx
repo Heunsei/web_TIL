@@ -56,5 +56,3 @@ export default function AuthStackNavigator() {
     </Stack.Navigator>
   );
 }
-
-const styles = StyleSheet.create({});
