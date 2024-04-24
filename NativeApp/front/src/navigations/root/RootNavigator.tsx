@@ -9,8 +9,8 @@ export default function RootNavigator() {
   // const isLogin = true;
   return (
     <>
-      {isLogin ? <MainDrawerNavigator /> : <AuthStackNavigator />}
-      {/* <MainDrawerNavigator /> */}
+      {/* {isLogin ? <MainDrawerNavigator /> : <AuthStackNavigator />} */}
+      <MainDrawerNavigator />
     </>
   );
 }

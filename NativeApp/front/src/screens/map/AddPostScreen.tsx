@@ -1,5 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {
+  Image,
+  Platform,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -13,13 +15,19 @@ import {colors, mapNavigations} from '@/constants';
 import InputField from '@/components/InputField';
 import CustomButton from '@/components/CustomButton';
 import useForm from '@/hooks/useForm';
-import {validateAddPost} from '@/utils';
+import {getDateWithSeparator, validateAddPost} from '@/utils';
 import AddPostHeaderRight from '@/components/AddPostHeaderRight';
 import useMutateCreatePost from '@/hooks/queries/useMutateCreatePost';
 import {MarkerColor} from '@/types';
 import useGetAddress from '@/hooks/useGetAddress';
 import MarkerSelector from '@/components/MarkerSelector';
 import ScoreInput from '@/components/ScoreInput';
+import DatePickerOption from '@/components/DatePickerOption';
+import useModal from '@/hooks/useModal';
+import ImageInput from '@/components/ImageInput';
+import usePermisison from '@/hooks/usePermission';
+import useImagePicker from '@/hooks/useImagepicker';
+import PreviewImageList from '@/components/PreviewImageList';
 
 type AddPostScreenProps = StackScreenProps<
   MapStackParamList,
@@ -34,9 +42,28 @@ export default function AddPostScreen({route, navigation}: AddPostScreenProps) {
   const [markerColor, setMarkerColor] = useState<MarkerColor>('RED');
   const [score, setScore] = useState(5);
   const address = useGetAddress(location);
+  const [date, setDate] = useState(new Date());
+  const [isPicked, setIsPicked] = useState(false);
+  const dateOption = useModal();
+  const imagePicker = useImagePicker({
+    initaialImage: [],
+  });
+
+  console.log('imagePickerImage', imagePicker.imageUris);
+  usePermisison('PHOTO');
 
   const handleSelectMarker = (name: MarkerColor) => {
     setMarkerColor(name);
+  };
+
+  const handleConfirmDate = () => {
+    setIsPicked(true);
+    dateOption.hide();
+  };
+
+  const handleDateChange = (pickedDate: Date) => {
+    setDate(pickedDate);
+    return;
   };
 
   const handleChangeScore = (value: number) => {
@@ -53,7 +80,7 @@ export default function AddPostScreen({route, navigation}: AddPostScreenProps) {
 
   const handleSubmit = () => {
     const body = {
-      date: new Date(),
+      date,
       title: addPost.values.title,
       description: addPost.values.description,
       color: markerColor,
@@ -66,7 +93,6 @@ export default function AddPostScreen({route, navigation}: AddPostScreenProps) {
       {
         // 요청 성공시 이전 화면으로 이동
         onSuccess: () => navigation.goBack(),
-        onError: error => console.log(error),
       },
     );
   };
@@ -88,7 +114,12 @@ export default function AddPostScreen({route, navigation}: AddPostScreenProps) {
               <Octicons name="location" size={16} color={colors.GRAY_500} />
             }
           />
-          <CustomButton variant="outlined" size="large" label="날짜 선택" />
+          <CustomButton
+            variant="outlined"
+            size="large"
+            label={isPicked ? getDateWithSeparator(date, '.') : '날짜 선택'}
+            onPress={dateOption.show}
+          />
           <InputField
             placeholder="제목을 입력하세요"
             error={addPost.errors.title}
@@ -113,7 +144,17 @@ export default function AddPostScreen({route, navigation}: AddPostScreenProps) {
             onPressMarker={handleSelectMarker}
           />
           <ScoreInput score={score} onChangeScore={handleChangeScore} />
+          <ImageInput onChange={imagePicker.handleChange} />
+          <View style={styles.imageViewer}>
+            <PreviewImageList imageUris={imagePicker.imageUris} />
+          </View>
         </View>
+        <DatePickerOption
+          date={date}
+          isVisible={dateOption.isVisible}
+          onChangeDate={handleDateChange}
+          onConfirmDate={handleConfirmDate}
+        />
       </ScrollView>
     </SafeAreaView>
   );
@@ -123,4 +164,5 @@ const styles = StyleSheet.create({
   container: {flex: 1},
   contentContainer: {flex: 1, padding: 20, marginBottom: 20},
   inputContainer: {gap: 20, marginBottom: 20},
+  imageViewer: {flexDirection: 'row'},
 });
