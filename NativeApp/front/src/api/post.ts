@@ -3,6 +3,11 @@ import axiosInstance from './axios';
 
 type ResponsePost = Post & {images: ImageUri[]};
 
+const getPosts = async (page = 1): Promise<ResponsePost[]> => {
+  const {data} = await axiosInstance.get(`/posts/my?page=${page}`);
+  return data;
+};
+
 type RequestCreatePost = Omit<Post, 'id'> & {imageUris: ImageUri[]};
 
 const createPost = async (body: RequestCreatePost): Promise<ResponsePost> => {
@@ -11,5 +16,13 @@ const createPost = async (body: RequestCreatePost): Promise<ResponsePost> => {
   return data;
 };
 
-export {createPost};
-export type {ResponsePost, RequestCreatePost};
+type ResponseSinglePost = ResponsePost & {isFavorite: boolean};
+
+const getPost = async (id: number): Promise<ResponseSinglePost> => {
+  const {data} = await axiosInstance.get(`/posts/${id}`);
+
+  return data;
+};
+
+export {createPost, getPost, getPosts};
+export type {ResponsePost, RequestCreatePost, ResponseSinglePost};
