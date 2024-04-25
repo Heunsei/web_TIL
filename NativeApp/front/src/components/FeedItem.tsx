@@ -26,8 +26,8 @@ export default function FeedItem({post}: FeedItemProps) {
               source={{
                 uri: `${
                   Platform.OS === 'ios'
-                    ? 'http://localhoost:3030/'
-                    : 'http://10.0.2.2:3030 '
+                    ? 'http://localhost:3030/'
+                    : 'http://10.0.2.2:3030/'
                 }${post.images[0]?.uri}`,
               }}
               resizeMode="cover"
@@ -44,7 +44,9 @@ export default function FeedItem({post}: FeedItemProps) {
             {getDateWithSeparator(post.date, '/ ')}
           </Text>
           <Text style={styles.titleText}>{post.title}</Text>
-          <Text style={styles.descriptionText}>{post.description}</Text>
+          <Text style={styles.descriptionText} numberOfLines={1}>
+            {post.description}
+          </Text>
         </View>
       </View>
     </View>

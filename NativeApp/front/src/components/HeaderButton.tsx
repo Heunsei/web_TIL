@@ -3,7 +3,7 @@ import React, {ReactNode} from 'react';
 import {colors} from '@/constants';
 
 interface HeaderButtonProps extends PressableProps {
-  labelText: string;
+  labelText?: string;
   icon?: ReactNode;
   hasError?: boolean;
 }
