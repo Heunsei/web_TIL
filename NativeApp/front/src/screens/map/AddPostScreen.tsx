@@ -144,9 +144,13 @@ export default function AddPostScreen({route, navigation}: AddPostScreenProps) {
             onPressMarker={handleSelectMarker}
           />
           <ScoreInput score={score} onChangeScore={handleChangeScore} />
-          <ImageInput onChange={imagePicker.handleChange} />
           <View style={styles.imageViewer}>
-            <PreviewImageList imageUris={imagePicker.imageUris} />
+            <ImageInput onChange={imagePicker.handleChange} />
+            <PreviewImageList
+              imageUris={imagePicker.imageUris}
+              onDelete={imagePicker.delete}
+              onChangeOrder={imagePicker.changeOrder}
+            />
           </View>
         </View>
         <DatePickerOption
