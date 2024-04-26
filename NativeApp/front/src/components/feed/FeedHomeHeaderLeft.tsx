@@ -1,6 +1,6 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import React from 'react';
-import HeaderButton from './HeaderButton';
+import HeaderButton from '../HeaderButton';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {colors} from '@/constants';
 import {CompositeNavigationProp} from '@react-navigation/native';

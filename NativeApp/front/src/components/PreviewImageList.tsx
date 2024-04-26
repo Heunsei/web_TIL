@@ -14,14 +14,16 @@ import {colors} from '@/constants';
 
 interface PreviewImageListProps {
   imageUris: ImageUri[];
-  onDelete: (uri: string) => void;
+  onDelete?: (uri: string) => void;
   onChangeOrder?: (fromIndex: number, toIndex: number) => void;
+  showOption?: boolean;
 }
 
 export default function PreviewImageList({
   imageUris,
   onDelete,
   onChangeOrder,
+  showOption = false,
 }: PreviewImageListProps) {
   return (
     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
