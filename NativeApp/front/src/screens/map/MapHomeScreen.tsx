@@ -38,7 +38,6 @@ function MapHomeScreen() {
   const inset = useSafeAreaInsets();
   const {logoutMutation} = useAuth();
   const navigation = useNavigation<Navigation>();
-  const mapRef = useRef<MapView | null>(null);
   const {userLocation, isUserLocationError} = useUserLocation();
   const [selectLocation, setSelectLocation] = useState<LatLng | null>();
   const [markerId, setMarkerId] = useState<number | null>(null);
