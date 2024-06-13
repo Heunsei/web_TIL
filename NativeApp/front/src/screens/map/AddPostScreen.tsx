@@ -24,10 +24,10 @@ import MarkerSelector from '@/components/MarkerSelector';
 import ScoreInput from '@/components/ScoreInput';
 import DatePickerOption from '@/components/DatePickerOption';
 import useModal from '@/hooks/useModal';
+import PreviewImageList from '@/components/PreviewImageList';
 import ImageInput from '@/components/ImageInput';
 import usePermisison from '@/hooks/usePermission';
 import useImagePicker from '@/hooks/useImagepicker';
-import PreviewImageList from '@/components/PreviewImageList';
 
 type AddPostScreenProps = StackScreenProps<
   MapStackParamList,
