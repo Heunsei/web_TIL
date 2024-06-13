@@ -1,10 +1,10 @@
-import {FlatList, StyleSheet, Text} from 'react-native';
+import {FlatList, StyleSheet} from 'react-native';
 import React, {useState} from 'react';
 import useGetInfinitePosts from '@/hooks/queries/useGetInfinitePosts';
 import FeedItem from './FeedItem';
 
 // 서버에서 받아오는 내용이 고정되어 있지않고 유동적일때,
-// 얼마나 빋아와야하는지 모를때 사용하는 component
+// 얼마나 받아와야하는지 모를때 사용하는 component
 export default function FeedList() {
   const {
     data: posts,

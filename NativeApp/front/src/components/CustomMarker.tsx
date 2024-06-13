@@ -7,7 +7,7 @@ import {
   MyMapMarkerProps,
 } from 'react-native-maps';
 
-import {colors} from '@/constants';
+import {colors, colorHex} from '@/constants';
 import {MarkerColor} from '@/types';
 
 interface CustomMarkerProps extends MyMapMarkerProps {
@@ -15,14 +15,6 @@ interface CustomMarkerProps extends MyMapMarkerProps {
   color: MarkerColor;
   score?: number;
 }
-
-const colorHex = {
-  RED: colors.PINK_400,
-  BLUE: colors.BLUE_400,
-  GREEN: colors.GREEN_400,
-  YELLOW: colors.YELLOW_400,
-  PURPLE: colors.PURPLE_400,
-};
 
 function CustomMarker({
   coordinate,

@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Alert, Pressable, StyleSheet, Text, View} from 'react-native';
 import MapView, {
   Callout,
@@ -25,7 +25,9 @@ import mapStyle from '@/style/mapStyle';
 import CustomMarker from '@/components/CustomMarker';
 import useModal from '@/hooks/useModal';
 import MarkerModal from '@/components/MarkerModal';
-
+import useLocationStore from '@/store/useLocationStore';
+import useMoveMapView from '@/hooks/useMoveMapView';
+import {numbers} from '@/constants';
 type Navigation = CompositeNavigationProp<
   StackNavigationProp<MapStackParamList>,
   DrawerNavigationProp<MainDrawerParamList>
@@ -36,12 +38,14 @@ function MapHomeScreen() {
   const inset = useSafeAreaInsets();
   const {logoutMutation} = useAuth();
   const navigation = useNavigation<Navigation>();
-  const mapRef = useRef<MapView | null>(null);
   const {userLocation, isUserLocationError} = useUserLocation();
   const [selectLocation, setSelectLocation] = useState<LatLng | null>();
   const [markerId, setMarkerId] = useState<number | null>(null);
   const {data: markers = []} = useGetMarkers();
   const markerModal = useModal();
+  const {moveLocation} = useLocationStore();
+
+  const {mapRef, moveMapView, handleDeltaChange} = useMoveMapView();
   usePermission('LOCATION');
 
   const handleLongPressMapView = ({nativeEvent}: LongPressEvent) => {
@@ -59,14 +63,6 @@ function MapHomeScreen() {
       location: selectLocation,
     });
     setSelectLocation(null);
-  };
-
-  const moveMapView = (coordinate: LatLng) => {
-    mapRef.current?.animateToRegion({
-      ...coordinate,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421,
-    });
   };
 
   const handlePressUserLocation = () => {
@@ -95,10 +91,11 @@ function MapHomeScreen() {
         showsMyLocationButton={false}
         customMapStyle={mapStyle}
         onLongPress={handleLongPressMapView}
+        // 위치 또는 확대 정도가 변경 되었을 때 마지막 상태 저장
+        onRegionChangeComplete={handleDeltaChange}
         region={{
           ...userLocation,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
+          ...numbers.INITIAL_DELTA,
         }}>
         {markers.map(({id, color, score, ...coordinate}) => (
           <CustomMarker

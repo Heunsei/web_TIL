@@ -16,18 +16,19 @@ import InputField from '@/components/InputField';
 import CustomButton from '@/components/CustomButton';
 import useForm from '@/hooks/useForm';
 import {getDateWithSeparator, validateAddPost} from '@/utils';
-import AddPostHeaderRight from '@/components/AddPostHeaderRight';
 import useMutateCreatePost from '@/hooks/queries/useMutateCreatePost';
 import {MarkerColor} from '@/types';
 import useGetAddress from '@/hooks/useGetAddress';
 import MarkerSelector from '@/components/MarkerSelector';
 import ScoreInput from '@/components/ScoreInput';
-import DatePickerOption from '@/components/DatePickerOption';
 import useModal from '@/hooks/useModal';
 import PreviewImageList from '@/components/PreviewImageList';
 import ImageInput from '@/components/ImageInput';
 import usePermisison from '@/hooks/usePermission';
 import useImagePicker from '@/hooks/useImagepicker';
+import PreviewImageList from '@/components/PreviewImageList';
+import AddPostHeaderRight from '@/components/post/AddPostHeaderRight';
+import DatePickerOption from '@/components/post/DatePickerOption';
 
 type AddPostScreenProps = StackScreenProps<
   MapStackParamList,
