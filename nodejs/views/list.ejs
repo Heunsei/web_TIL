@@ -13,8 +13,29 @@
         <% for(let i = 0; i<titles.length; i++){ %>
             <h4><a href="/detail/<%=titles[i].id%>"><%= titles[i].title %></a></h4>
             <h4><%= titles[i].content %></h4>
+            <span class="delete" data-id="<%= titles[i].id %>">✂︎</span>
             <hr>
         <% } %>
       </div>
+      <script>
+        const deleteBtn = document.querySelectorAll('.delete')
+        deleteBtn.forEach(btn => {
+            btn.addEventListener('click', (event) => {
+            const id = event.target.getAttribute('data-id');
+            fetch(`/delete/${id}`, {
+              method : 'DELETE',
+              headers : {
+                'Content-Type' : 'application/json'
+              },
+            }).then((res) => {
+              location.reload();
+            }).catch((err) => {
+              alert('삭제실패');
+            })
+          })
+        })
+      </script>
   </body>
 </html>
+
+
